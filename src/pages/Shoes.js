@@ -46,10 +46,13 @@ export const Shoes = (props) => {
             rating: 4
         },                
     ]
+    const category = props;
+    console.log(category)
 
 
     return (
         <main class="main">
+            
             <div class="content">
                 <ul class="products">
                     <Product data={productData} />

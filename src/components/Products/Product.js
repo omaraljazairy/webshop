@@ -4,8 +4,15 @@ import { Image } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import Stars  from '../../components/Ratings/Stars';
 
+ /**
+  * Returns a product component that exists of a name, brand, price, image and rating. 
+  * @param {array} props array of object(s)
+  */
 export const Product = (props) => {
-    
+
+    /**
+     * style for the image of this component only.
+     */
     const styles = {
         image: {
           width: 250,
