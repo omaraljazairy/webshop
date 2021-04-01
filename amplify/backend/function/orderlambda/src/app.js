@@ -19,10 +19,10 @@ var stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 var AWS = require("aws-sdk")
 
 const aws_sdk_config = {
-  region: "eu-central-1",
-  adminEmail: "info@fedal.nl",
-  accessKeyId: "AKIAUMYWVFS2VFBYB2RJ",
-  secretAccessKey: "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"
+  region: process.env.REACT_APP_REGION,
+  adminEmail: process.env.REACT_APP_ADMIN_EMAIL,
+  accessKeyId: process.env.REACT_APP_ACCESS_KEY_ID,
+  secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY
 
 }
 
