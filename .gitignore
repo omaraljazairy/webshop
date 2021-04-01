@@ -25,7 +25,7 @@ yarn-error.log*
 .env.development
 .env.production
 .env.test
-**.env
+**/.env
 
 #amplify
 amplify/\#current-cloud-backend
