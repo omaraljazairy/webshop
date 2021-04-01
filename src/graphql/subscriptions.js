@@ -448,117 +448,6 @@ export const onDeleteCatalog = /* GraphQL */ `
     }
   }
 `;
-export const onCreateCountry = /* GraphQL */ `
-  subscription OnCreateCountry {
-    onCreateCountry {
-      id
-      code
-      name
-      zone
-      shippingDays
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateCountry = /* GraphQL */ `
-  subscription OnUpdateCountry {
-    onUpdateCountry {
-      id
-      code
-      name
-      zone
-      shippingDays
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteCountry = /* GraphQL */ `
-  subscription OnDeleteCountry {
-    onDeleteCountry {
-      id
-      code
-      name
-      zone
-      shippingDays
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateWeightZoneTariff = /* GraphQL */ `
-  subscription OnCreateWeightZoneTariff {
-    onCreateWeightZoneTariff {
-      id
-      zone
-      max
-      min
-      tariff
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateWeightZoneTariff = /* GraphQL */ `
-  subscription OnUpdateWeightZoneTariff {
-    onUpdateWeightZoneTariff {
-      id
-      zone
-      max
-      min
-      tariff
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteWeightZoneTariff = /* GraphQL */ `
-  subscription OnDeleteWeightZoneTariff {
-    onDeleteWeightZoneTariff {
-      id
-      zone
-      max
-      min
-      tariff
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateSessions = /* GraphQL */ `
-  subscription OnCreateSessions {
-    onCreateSessions {
-      id
-      ipaddress
-      userAgent
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateSessions = /* GraphQL */ `
-  subscription OnUpdateSessions {
-    onUpdateSessions {
-      id
-      ipaddress
-      userAgent
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteSessions = /* GraphQL */ `
-  subscription OnDeleteSessions {
-    onDeleteSessions {
-      id
-      ipaddress
-      userAgent
-      createdAt
-      updatedAt
-    }
-  }
-`;
 export const onCreateOrder = /* GraphQL */ `
   subscription OnCreateOrder {
     onCreateOrder {
@@ -682,6 +571,117 @@ export const onDeleteOrder = /* GraphQL */ `
         createdAt
         updatedAt
       }
+    }
+  }
+`;
+export const onCreateCountry = /* GraphQL */ `
+  subscription OnCreateCountry {
+    onCreateCountry {
+      id
+      code
+      name
+      zone
+      shippingDays
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateCountry = /* GraphQL */ `
+  subscription OnUpdateCountry {
+    onUpdateCountry {
+      id
+      code
+      name
+      zone
+      shippingDays
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteCountry = /* GraphQL */ `
+  subscription OnDeleteCountry {
+    onDeleteCountry {
+      id
+      code
+      name
+      zone
+      shippingDays
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateWeightZoneTariff = /* GraphQL */ `
+  subscription OnCreateWeightZoneTariff {
+    onCreateWeightZoneTariff {
+      id
+      zone
+      max
+      min
+      tariff
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateWeightZoneTariff = /* GraphQL */ `
+  subscription OnUpdateWeightZoneTariff {
+    onUpdateWeightZoneTariff {
+      id
+      zone
+      max
+      min
+      tariff
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteWeightZoneTariff = /* GraphQL */ `
+  subscription OnDeleteWeightZoneTariff {
+    onDeleteWeightZoneTariff {
+      id
+      zone
+      max
+      min
+      tariff
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateSessions = /* GraphQL */ `
+  subscription OnCreateSessions {
+    onCreateSessions {
+      id
+      ipaddress
+      userAgent
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateSessions = /* GraphQL */ `
+  subscription OnUpdateSessions {
+    onUpdateSessions {
+      id
+      ipaddress
+      userAgent
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteSessions = /* GraphQL */ `
+  subscription OnDeleteSessions {
+    onDeleteSessions {
+      id
+      ipaddress
+      userAgent
+      createdAt
+      updatedAt
     }
   }
 `;

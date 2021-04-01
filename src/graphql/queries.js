@@ -346,6 +346,87 @@ export const listCatalogs = /* GraphQL */ `
     }
   }
 `;
+export const getOrder = /* GraphQL */ `
+  query GetOrder($id: ID!) {
+    getOrder(id: $id) {
+      id
+      sessionId
+      customer {
+        id
+        username
+        email
+        name
+        shippingAddress {
+          city
+          country
+          address_line1
+          address_state
+          address_zip
+        }
+        phoneNumber
+        locale
+        phone_number
+        createdAt
+        updatedAt
+        orders {
+          nextToken
+        }
+      }
+      status
+      cartIds
+      totalPrice
+      statusDescription
+      createdAt
+      updatedAt
+      session {
+        id
+        ipaddress
+        userAgent
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const listOrders = /* GraphQL */ `
+  query ListOrders(
+    $filter: ModelOrderFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listOrders(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        sessionId
+        customer {
+          id
+          username
+          email
+          name
+          phoneNumber
+          locale
+          phone_number
+          createdAt
+          updatedAt
+        }
+        status
+        cartIds
+        totalPrice
+        statusDescription
+        createdAt
+        updatedAt
+        session {
+          id
+          ipaddress
+          userAgent
+          createdAt
+          updatedAt
+        }
+      }
+      nextToken
+    }
+  }
+`;
 export const getCustomerByEmail = /* GraphQL */ `
   query GetCustomerByEmail(
     $email: String
@@ -471,6 +552,53 @@ export const getProductByCatalog = /* GraphQL */ `
         enabled
         createdAt
         updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getOrderBySession = /* GraphQL */ `
+  query GetOrderBySession(
+    $sessionId: ID
+    $sortDirection: ModelSortDirection
+    $filter: ModelOrderFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    getOrderBySession(
+      sessionId: $sessionId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        sessionId
+        customer {
+          id
+          username
+          email
+          name
+          phoneNumber
+          locale
+          phone_number
+          createdAt
+          updatedAt
+        }
+        status
+        cartIds
+        totalPrice
+        statusDescription
+        createdAt
+        updatedAt
+        session {
+          id
+          ipaddress
+          userAgent
+          createdAt
+          updatedAt
+        }
       }
       nextToken
     }
@@ -688,134 +816,6 @@ export const getSessions = /* GraphQL */ `
       userAgent
       createdAt
       updatedAt
-    }
-  }
-`;
-export const getOrder = /* GraphQL */ `
-  query GetOrder($id: ID!) {
-    getOrder(id: $id) {
-      id
-      sessionId
-      customer {
-        id
-        username
-        email
-        name
-        shippingAddress {
-          city
-          country
-          address_line1
-          address_state
-          address_zip
-        }
-        phoneNumber
-        locale
-        phone_number
-        createdAt
-        updatedAt
-        orders {
-          nextToken
-        }
-      }
-      status
-      cartIds
-      totalPrice
-      statusDescription
-      createdAt
-      updatedAt
-      session {
-        id
-        ipaddress
-        userAgent
-        createdAt
-        updatedAt
-      }
-    }
-  }
-`;
-export const listOrders = /* GraphQL */ `
-  query ListOrders(
-    $filter: ModelOrderFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listOrders(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        sessionId
-        customer {
-          id
-          username
-          email
-          name
-          phoneNumber
-          locale
-          phone_number
-          createdAt
-          updatedAt
-        }
-        status
-        cartIds
-        totalPrice
-        statusDescription
-        createdAt
-        updatedAt
-        session {
-          id
-          ipaddress
-          userAgent
-          createdAt
-          updatedAt
-        }
-      }
-      nextToken
-    }
-  }
-`;
-export const getOrderBySession = /* GraphQL */ `
-  query GetOrderBySession(
-    $sessionId: ID
-    $sortDirection: ModelSortDirection
-    $filter: ModelOrderFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    getOrderBySession(
-      sessionId: $sessionId
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        sessionId
-        customer {
-          id
-          username
-          email
-          name
-          phoneNumber
-          locale
-          phone_number
-          createdAt
-          updatedAt
-        }
-        status
-        cartIds
-        totalPrice
-        statusDescription
-        createdAt
-        updatedAt
-        session {
-          id
-          ipaddress
-          userAgent
-          createdAt
-          updatedAt
-        }
-      }
-      nextToken
     }
   }
 `;

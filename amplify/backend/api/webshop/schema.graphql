@@ -178,7 +178,7 @@ type Catalog @model
 
 # add totalPrice
 type Order @model
-@auth(rules: [{allow: public, operations: [read]}])
+# @auth(rules: [{allow: public, operations: [read]}])
 @key(name: "bySessionId", fields: ["sessionId"], queryField: "getOrderBySession")
 {
   id: ID!
