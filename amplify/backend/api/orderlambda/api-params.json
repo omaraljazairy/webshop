@@ -1,0 +1,69 @@
+{
+    "paths": [
+        {
+            "name": "/charge",
+            "lambdaFunction": "orderlambda",
+            "privacy": {
+                "protected": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ],
+                "unauth": [
+                    "/GET"
+                ],
+                "userPoolGroups": {
+                    "Admin": [
+                        "/POST",
+                        "/GET",
+                        "/PUT",
+                        "/PATCH",
+                        "/DELETE"
+                    ]
+                }
+            }
+        }
+    ],
+    "resourceName": "orderlambda",
+    "apiName": "orderlambda",
+    "functionArns": [
+        {
+            "lambdaFunction": "orderlambda"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 1,
+        "authRoleName": "amplify-webshop-dev-144027-authRole",
+        "unAuthRoleName": "amplify-webshop-dev-144027-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "orderlambda",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "auth",
+            "resourceName": "webshop6b9226386b922638",
+            "attributes": [
+                "UserPoolId"
+            ]
+        },
+        {
+            "category": "auth",
+            "resourceName": "userPoolGroups",
+            "attributes": [
+                "AdminGroupRole"
+            ]
+        }
+    ],
+    "uuid": "a65923d2",
+    "authResourceName": "webshop6b9226386b922638"
+}

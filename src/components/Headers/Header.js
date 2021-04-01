@@ -15,11 +15,13 @@ const Header = props => (
                 <NavLink exact strict to='/' activeClassName='active' >Home</NavLink>
                 <NavLink exact to='/clothes' activeClassName='active'>Clothes</NavLink>
                 <NavLink exact to='/toys' activeClassName='active'>Toys</NavLink>
-                <NavLink exact to='/shoes' activeClassName='active'>Shoes</NavLink>
+                {/* <NavLink exact to='/markets' activeClassName='active'>Markets</NavLink> */}
+                {/* <NavLink exact to='/shoes' activeClassName='active'>Shoes</NavLink> */}
             </div>
             <div className="header__cart_account">
-                <Icon link name='shopping cart' />
-                <Icon link name='user' />
+        <NavLink exact to='/cart' activeClassName='active'><Icon link name='shopping cart' />
+        </NavLink>
+        <NavLink exact to='/account' activeClassName='active'><Icon link name='user' /></NavLink>
             </div>
         </nav>
     </header>

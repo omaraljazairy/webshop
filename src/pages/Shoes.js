@@ -7,6 +7,7 @@ import shoe3 from '../assets/img/shoes3.jpg';
 import shoe4 from '../assets/img/shoes4.jpg';
 import shoe5 from '../assets/img/shoes5.jpg';
 
+
 export const Shoes = (props) => {
 
     const productData = [
@@ -51,10 +52,9 @@ export const Shoes = (props) => {
 
 
     return (
-        <main class="main">
-            
-            <div class="content">
-                <ul class="products">
+        <main className="main">
+            <div className="content">
+                <ul className="products">
                     <Product data={productData} />
                 </ul>
             </div>

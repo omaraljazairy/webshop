@@ -1,7 +1,7 @@
 .header {
     position: fixed;
     width: 100%;
-    background: #f7f8f8;
+    background: #1f1f80;
     height: 40px;
     top: 0;
     left: 0;
@@ -29,7 +29,7 @@
 }
 
 .header__navigation-items a {
-    color: black;
+    color: white;
     padding: 0 0.5rem;
 }
 
@@ -50,5 +50,8 @@
     justify-content: center;
     height: 100%;
     padding: 0 1rem;
+}
 
+.header__cart_account a{
+    color: white;
 }

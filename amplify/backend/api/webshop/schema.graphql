@@ -1,0 +1,282 @@
+
+type Note 
+  @model 
+  @auth(rules: [{ allow: owner}]) {
+  id: ID!
+  note: String!
+}
+
+# @searchable
+type Market @model {
+  id: ID!
+  name: String!
+  marketProducts: [MarketProduct] @connection(name: "MarketProducts")
+  tags: [String]
+  owner: String!
+  createdAt: String
+
+}
+
+type MarketProduct @model @auth(rules: [{ allow: owner, identityField: "sub" }]) {
+  id: ID!
+  description: String!
+  market: Market @connection(name: "MarketProducts", sortField: "createdAt")
+  file: S3Object!
+  price: Float!
+  shipped: Boolean!
+  owner: String
+  createdAt: String
+}
+
+type S3Object {
+  bucket: String!
+  region: String!
+  key: String!
+}
+
+type User @model(
+  queries: { get: "getUser" },
+  mutations: { create: "registerUser", update: "updateUser" },
+  subscriptions: null
+) {
+  id: ID!
+  username: String!
+  email: String!
+  registered: Boolean!
+  orders: [MarketOrder] @connection(name: "UserOrders", sortField: "createdAt")
+}
+
+type MarketOrder @model( 
+  queries: null,
+  mutations: { create: "createMarketOrder" },
+  subscriptions: null
+) {
+  id: ID!
+  user:User @connection(name: "UserOrders", sortField: "createdAt")
+  marketproduct: MarketProduct @connection
+  shippingAddress: ShippingAddress
+  createdAt: String
+}
+
+type ShippingAddress {
+  city: String!
+  country: String!
+  address_line1: String!
+  address_state: String!
+  address_zip: String!
+}
+
+type Country 
+  @model
+  @auth(rules: [{allow: public, operations: [read]}])
+  @key(name: "codeIndex", fields: ["code"], queryField: "countryByCode") {
+  id: ID!
+  code: String!
+  name: String!
+  zone: String!
+  shippingDays: String
+  createdAt: AWSDateTime!
+}
+
+type WeightZoneTariff 
+  @model 
+  @auth(rules: [{allow: public, operations: [read]}])
+  @key(name: "zoneIndex", fields: ["zone"], queryField: "GetTariffByZone")
+  @key(name: "zonemaxIndex", fields: ["zone", "max"], queryField: "GetTariffByZoneWeight")
+  @key(name: "zonemaxMinIndex", fields: ["zone", "max", "min"], queryField: "GetTariffByZoneMaxMin")
+  {
+  id: ID!
+  zone: String!
+  max: Float!
+  min: Float!
+  tariff: Float!
+}
+
+# add ipaddress
+type Sessions @model 
+@auth(rules: [{allow: public, operations: [read]}])
+{
+  id: ID!
+  ipaddress: String
+  userAgent: String
+  createdAt: AWSDateTime!
+}
+
+type Customer @model 
+@auth(rules: [
+  { allow: groups, groups: ["Admin"] },
+  { allow: owner, ownerField: "username", operations: [read] }
+  ])
+@key(name: "byEmail", fields: ["email"], queryField: "GetCustomerByEmail") {
+  id:ID!
+  username: String!
+  email: String!
+  name: String!
+  shippingAddress: ShippingAddress
+  phoneNumber: String
+  locale: String
+  phone_number: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  orders: [Order] @connection(name: "CustomerOrders", sortField: "createdAt")
+}
+
+# type CustomerShippingAddress @model 
+# @auth(rules: [
+#   { allow: owner, operations: [read] }
+#   ])
+# {
+#   id: ID!
+#   city: String!
+#   country: String
+#   street: String
+#   state: String
+#   zipcode: String
+#   phoneNumber: String
+#   createdAt: AWSDateTime!
+#   updatedAt: AWSDateTime!
+# }
+
+type Product @model
+# @auth(rules: [
+#   { allow: public, operations: [read] }
+# ])
+@key(name: "brandIdIndex", fields: ["brandId"], queryField: "getProductByBrandId")
+@key(name: "catalogIdIndex", fields: ["catalogId"], queryField: "getProductByCatalog")
+{
+  id: ID!
+  description: String!
+  brandId: ID!
+  catalogId: ID!
+  brand: Brand @connection(fields: ["brandId"])
+  catalog: Catalog @connection(fields: ["catalogId"])
+  price: Float!
+  stock: Int!
+  weight: Float!
+  imageUrl: String
+  supplier: String
+  enabled: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Brand @model
+# @auth(rules: [{allow: public, operations: [read]}])
+{
+  id: ID!
+  name: String!
+  createdAt: AWSDateTime!
+}
+
+type Catalog @model 
+# @auth(rules: [{allow: public, operations: [read]}])
+{
+  id: ID!
+  name: String!
+  createdAt: AWSDateTime!
+}
+
+# add totalPrice
+type Order @model
+@auth(rules: [{allow: public, operations: [read]}])
+@key(name: "bySessionId", fields: ["sessionId"], queryField: "getOrderBySession")
+{
+  id: ID!
+  sessionId: ID!
+  session: Sessions @connection(fields: ["sessionId"])
+  customer: Customer @connection(name: "CustomerOrders", sortField: "createdAt")
+  status: Status!
+  cartIds: [ID]!
+  totalPrice: Float!
+  statusDescription: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+# type Mutation {
+#   processOrder(input: ProcessOrderInput!): Status
+#    @function(name: "processPayment-${env}")
+#    @function(name: "createdOrder-${env}") 
+# }
+
+
+# input ProcessOrderInput {
+#   id: ID!
+#   cart: [Cart]
+#   total: Float!
+#   token: String!
+#   address: String
+# }
+
+type Cart @model
+@auth(rules: [{allow: public, operations: [read]}])
+@key(name: "productIdIndex", fields: ["productId"], queryField: "getOrderProductByProduct")
+@key(name: "bySessionId", fields: ["sessionId"], queryField: "getProductsBySession")
+{
+  id: ID!
+  sessionId: ID!
+  session: Sessions @connection(fields: ["sessionId"])
+  productId: ID!
+  product: Product @connection(fields: ["productId"])
+  quantity: Int!
+  totalPrice: Float!
+  createdAt: AWSDateTime!
+}
+
+type OrderShipment @model
+@auth(rules: [{allow: public, operations: [read]}]) 
+@key(name: "byOrderId", fields: ["orderId"], queryField: "getShipmentByOrderId")
+{
+  id: ID!
+  orderId: String!
+  tracking: String
+  expedition: String
+  carrier: String
+  trackingURL: String
+  status: Status
+  createdAt: AWSDateTime!
+}
+
+type OrderPayment @model 
+@auth(rules: [{allow: public, operations: [read]}]) 
+@key(name: "byOrderId", fields: ["orderId"], queryField: "getPaymentByOrderId")
+{
+  id: ID!
+  orderId: String!
+  status: Status!
+  description: String
+  createdAt: AWSDateTime!
+}
+
+type Events @model 
+@auth(rules: [{allow: public, operations: [read]}]) 
+@key(name: "byOrderId", fields: ["orderId"], queryField: "getEventByOrderId") {
+  id: ID!
+  orderId: String!
+  type: EventType!
+  status: Status!
+  description: String
+  createdAt: AWSDateTime!
+}
+
+enum EventType {
+  ORDER
+  SHIPMENT
+  PAYMENT
+}
+
+enum Status {
+	SUCCESS
+  TERMINATED
+  INPROGRESS
+	PENDING
+	FAILED
+	DELIVERED
+	CANCELLED
+	ERRORCARRIER
+	ERRORSTOCK
+  PENDINGSHIPPING
+  PROCESSED
+  RECEIVED
+  SENT
+}

@@ -1,0 +1,16 @@
+{
+  "trigger": true,
+  "modules": [
+    "custom"
+  ],
+  "parentResource": "webshop6b9226386b922638",
+  "functionName": "webshop6b9226386b922638PostConfirmation",
+  "resourceName": "webshop6b9226386b922638PostConfirmation",
+  "parentStack": "auth",
+  "triggerEnvs": [],
+  "triggerDir": "/usr/local/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/triggers/PostConfirmation",
+  "triggerTemplate": "PostConfirmation.json.ejs",
+  "roleName": "webshop6b9226386b922638PostConfirmation",
+  "skipEdit": true,
+  "enableCors": false
+}

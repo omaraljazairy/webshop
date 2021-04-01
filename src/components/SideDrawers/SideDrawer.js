@@ -8,7 +8,6 @@ import parkingIcon from '../../assets/img/icons8-parking-50.png';
 import gasstationIcon from '../../assets/img/icons8-gas-station-50.png';
 import contactIcon from '../../assets/img/icons8-contact-details-50.png';
 import logo from '../../assets/img/logo_size.jpg';
-//import SocialmediaIcons from '../SocialmediaItems/SocialmediaIcons';
 import '../../assets/css/sidedrawer.css';
 
 const SideDrawer = props => {
@@ -31,31 +30,31 @@ const SideDrawer = props => {
             </div>
             <nav>
                 <div className="side-drawer-items">
-                    <Image src={homeIcon} style={styles.icons} alt="home"/> 
+                    {/* <Image src={homeIcon} style={styles.icons} alt="home"/>  */}
                     <NavLink exact to='/' activeClassName='active' onClick={props.drawerHandler} >  Home</NavLink>
                 </div>
                 <div className="side-drawer-items">
-                    <Image src={aboutIcon} style={styles.icons} alt="home"/> 
+                    {/* <Image src={aboutIcon} style={styles.icons} alt="home"/>  */}
                     <NavLink exact to='/about' activeClassName='active' onClick={props.drawerHandler}>Over Ons</NavLink>
                 </div>
                 <div className="side-drawer-items">
-                    <Image src={servicesIcon} style={styles.icons} alt="home"/> 
+                    {/* <Image src={servicesIcon} style={styles.icons} alt="home"/>  */}
                     <NavLink exact to='/services' activeClassName='active' onClick={props.drawerHandler}>Services</NavLink>
                 </div>
                 <div className="side-drawer-items">
-                    <Image src={parkingIcon} style={styles.icons} alt="home"/> 
+                    {/* <Image src={parkingIcon} style={styles.icons} alt="home"/>  */}
                     <NavLink exact to='/wagenpark' activeClassName='active' onClick={props.drawerHandler}>Wagenpark</NavLink>
                 </div>
                 <div className="side-drawer-items">
-                    <Image src={gasstationIcon} style={styles.icons} alt="home"/> 
+                    {/* <Image src={gasstationIcon} style={styles.icons} alt="home"/>  */}
                     <NavLink exact to='/tankstations' activeClassName='active' onClick={props.drawerHandler}>Tankstations</NavLink>
                 </div>
                 <div className="side-drawer-items">
-                    <Image src={contactIcon} style={styles.icons} alt="home"/> 
+                    {/* <Image src={contactIcon} style={styles.icons} alt="home"/>  */}
                     <NavLink exact to='/contact' activeClassName='active' onClick={props.drawerHandler}>Contact</NavLink>
                 </div>
                 <div className="side-drawer-items">
-                    <Image src={contactIcon} style={styles.icons} alt="media"/> 
+                    {/* <Image src={contactIcon} style={styles.icons} alt="media"/>  */}
                     <NavLink exact to='/media' activeClassName='active' onClick={props.drawerHandler}>Media</NavLink>
                 </div>
             </nav>

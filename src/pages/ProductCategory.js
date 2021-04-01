@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+// import redis from 'redis'
 import '../../src/assets/css/productcategory.css';
-import { Product } from '../components/Products/Product';
+import Product  from '../components/Products/Product';
 import shoe1 from '../assets/img/shoes1.jpg';
 import shoe2 from '../assets/img/shoes2.jpg';
 import shoe3 from '../assets/img/shoes3.jpg';
@@ -16,11 +17,12 @@ import shoe5 from '../assets/img/shoes5.jpg';
 // import clothes3 from '../assets/img/clothes3.jpg';
 // import clothes4 from '../assets/img/clothes4.jpg';
 // import clothes5 from '../assets/img/clothes5.jpg';
-
 class ProductCategory extends Component {
 /**  This class will be the main view for all the product categories. */
 
     render () {
+        console.log('Clothes');
+        console.log('props: ', this.props);
         const productData = [
             {
                 image: shoe1,
@@ -61,9 +63,9 @@ class ProductCategory extends Component {
     
         return (
     
-        <main class="main">
-            <div class="content">
-                <ul class="products">
+        <main className="main">
+            <div className="content">
+                <ul className="products">
                     <Product data={productData} />
                </ul>
             </div>
