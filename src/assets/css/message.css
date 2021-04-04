@@ -1,0 +1,16 @@
+.ui.message {
+    font-size: 1em;
+}
+.ui.message {
+    position: relative;
+    min-height: 1em;
+    margin: 1em 0;
+    padding: 1em 1.5em;
+    line-height: 1.4285em;
+    /* background: #088A29; */
+    color: rgba(0,0,0,.87);
+    transition: opacity .1s ease,color .1s ease,background .1s ease,box-shadow .1s ease;
+    border-radius: .28571429rem;
+    box-shadow: 0 0 0 1px rgba(34,36,38,.22) inset,0 0 0 0 transparent;
+    color: #fff;
+}

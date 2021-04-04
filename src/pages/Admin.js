@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import '../../src/assets/css/admin.css';
-import { API, graphqlOperation } from 'aws-amplify';
+import { Storage, Auth, API, graphqlOperation } from 'aws-amplify';
+import exports from '../aws-exports';
 import { listProducts } from '../graphql/queries';
 import { updateProduct } from '../graphql/mutations';
 import CustomTable from '../components/Table/CustomTable';
 import Circular from '../components/Loader/Circular';
+import NotificationMessage from '../components/Notifications/Message';
 
 
 class Admin extends Component {
@@ -14,11 +16,57 @@ class Admin extends Component {
         this.state = {
             user: this.props.user,
             products: [],
-            isLoading: false
+            isLoading: false,
+            image: null,
+            progress: 0,
+            showMessage: false,
+            textMessage: '',
+            colorMessage: undefined
         }
     }
 
+    handleProductUpload = async (productId, imageFile) => {
+        try{
+            console.log('imagefile received for id: ', productId)
+            console.log("imageFile received: ", imageFile)
+    
+            console.log("product add submit");
+    
+            const visibility = "public";
+            const { identityId } = await Auth.currentCredentials()
+            console.log("identityId: ", identityId)
+            const filename = `${visibility}/${identityId}/${Date.now()}-${imageFile.name}`
+            const uploadedFile = await Storage.put(filename, imageFile.file, {
+                contentType: imageFile.type,
+                progressCallback: progress => {
+                    console.log(`Uploaded: ${progress.loaded}/${progress.total}`)
+                    const percentUploaded = (progress.loaded / progress.total) * 100
+                    this.setState({progress: percentUploaded})
+                    console.log("percentUploaded: ", percentUploaded)
+                }
+            })
+            const file = {
+                key: uploadedFile.key,
+                bucket: exports.aws_user_files_s3_bucket,
+                region: exports.aws_project_region
+            }
+            console.log('file set: ', file);
 
+            const updateResult = await this.updateProducts(productId, 'file', file)
+            if (updateResult) {
+                console.log("update success")
+                this.setState({showMessage: true, textMessage: 'Success Updated', colorMessage: 'green'})
+            } else {
+                console.log("update not success")
+                this.setState({showMessage: true, textMessage: 'Error Updated', colorMessage: 'red'})
+            }
+    
+        } catch (err) {
+            console.error("unable to create product: ", err)
+            this.setState({ progress: 0 })
+        }
+      }
+    
     componentDidMount() {
         this.isMountedVal = 1
         this.fetchProducts()
@@ -47,35 +95,69 @@ class Admin extends Component {
         }
     }
 
+    /**
+     * update the product object based on the productId given
+     * @param {string} id - productId 
+     * @param {string} attr - product attribute name
+     * @param {any} value - any type of value
+     * @returns 
+     */
     updateProducts = async(id, attr, value) => {
-        let inputDate = {
+        let inputData = {
             id: id,
         }
-        if (attr === 'enabled') {
-            inputDate.enabled = value
-        } else {
-            console.log('unknow attribute');
-            return
-        }
 
-        console.log("update input: ", inputDate)
+        switch (attr) {
+            case 'enabled':
+                inputData.enabled = value
+                break
+            case 'file':
+                inputData.file = value
+                break
+            case 'price':
+                inputData.price = parseFloat(value)
+                break
+            default:
+                console.log('unknow attribute');
+                return false
+        }
+        
+
+
+        console.log("update input: ", inputData)
         try {
-            const result = await API.graphql(graphqlOperation(updateProduct, {input: inputDate}));
+            this.setState({isLoading: true});
+            const result = await API.graphql(graphqlOperation(updateProduct, {input: inputData}));
             const updatedProduct = result.data.updateProduct
             console.log('update result: ', updatedProduct)
             // update the state
             // copy the product array from the state into a temp object
             // let temp_state = this.state;
             let newProducts = this.state.products.map(product => ( product.id === updatedProduct.id ? updatedProduct : product ))
-            this.setState({products: newProducts})
+            this.setState(
+                {
+                    products: newProducts, 
+                    isLoading: false,
+                    showMessage: true, 
+                    textMessage: 'Success Updated', 
+                    colorMessage: 'green'
+                })
+           
+            return true
             // console.log("newProduct = ", newProducts)
 
 
         } catch (err) {
+            this.setState(
+                {
+                    isLoading: false,
+                    showMessage: true,
+                    textMessage: 'Error Updated',
+                    colorMessage: 'red'
+                });
             console.error(' error updating product: ', err)
+            return false
         }
-        
-
     }
 
     onCellChange(oldValue, newValue, row, column) {
@@ -89,20 +171,23 @@ class Admin extends Component {
 
     render() {
         const username = this.state.user ? this.state.user.username : null;
-        const products = this.state.products
+        const {textMessage, colorMessage, showMessage, products} = this.state
+        // const showMessage = this.state.showMessage
         console.log('products from state: ', products)
         return (
             <>
             <h2>Admin page {username} </h2>
+            {showMessage ? <NotificationMessage text={textMessage} color={colorMessage} /> : null}
             <div className="menu">
-                {this.state.isLoading ? (<Circular color="secondary" />) : null}
+                {this.state.isLoading 
+                ? (<Circular color="secondary" />) : null}
                 {products.length > 0 
                 ?
                 (
                 <div>
-                <h2>{products[0].id}</h2>
                 <CustomTable data={products} 
                 onCellChange={(oldValue, newValue, row, column) => this.onCellChange(oldValue, newValue, row, column)}
+                uploadImage={(productId, imageFile) => this.handleProductUpload(productId, imageFile)}
                 />
                 </div>
                 )

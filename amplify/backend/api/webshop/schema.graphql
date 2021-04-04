@@ -154,6 +154,7 @@ type Product @model
   stock: Int!
   weight: Float!
   imageUrl: String
+  file: S3Object
   supplier: String
   enabled: String
   createdAt: AWSDateTime!

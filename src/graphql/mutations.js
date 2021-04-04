@@ -596,6 +596,11 @@ export const createProduct = /* GraphQL */ `
       stock
       weight
       imageUrl
+      file {
+        bucket
+        region
+        key
+      }
       supplier
       enabled
       createdAt
@@ -629,6 +634,11 @@ export const updateProduct = /* GraphQL */ `
       stock
       weight
       imageUrl
+      file {
+        bucket
+        region
+        key
+      }
       supplier
       enabled
       createdAt
@@ -662,6 +672,11 @@ export const deleteProduct = /* GraphQL */ `
       stock
       weight
       imageUrl
+      file {
+        bucket
+        region
+        key
+      }
       supplier
       enabled
       createdAt
@@ -912,6 +927,11 @@ export const createCart = /* GraphQL */ `
         stock
         weight
         imageUrl
+        file {
+          bucket
+          region
+          key
+        }
         supplier
         enabled
         createdAt
@@ -961,6 +981,11 @@ export const updateCart = /* GraphQL */ `
         stock
         weight
         imageUrl
+        file {
+          bucket
+          region
+          key
+        }
         supplier
         enabled
         createdAt
@@ -1010,6 +1035,11 @@ export const deleteCart = /* GraphQL */ `
         stock
         weight
         imageUrl
+        file {
+          bucket
+          region
+          key
+        }
         supplier
         enabled
         createdAt

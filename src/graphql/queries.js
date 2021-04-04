@@ -248,6 +248,11 @@ export const getProduct = /* GraphQL */ `
       stock
       weight
       imageUrl
+      file {
+        bucket
+        region
+        key
+      }
       supplier
       enabled
       createdAt
@@ -283,6 +288,11 @@ export const listProducts = /* GraphQL */ `
         stock
         weight
         imageUrl
+        file {
+          bucket
+          region
+          key
+        }
         supplier
         enabled
         createdAt
@@ -503,6 +513,11 @@ export const getProductByBrandId = /* GraphQL */ `
         stock
         weight
         imageUrl
+        file {
+          bucket
+          region
+          key
+        }
         supplier
         enabled
         createdAt
@@ -548,6 +563,11 @@ export const getProductByCatalog = /* GraphQL */ `
         stock
         weight
         imageUrl
+        file {
+          bucket
+          region
+          key
+        }
         supplier
         enabled
         createdAt
@@ -846,6 +866,11 @@ export const getCart = /* GraphQL */ `
         stock
         weight
         imageUrl
+        file {
+          bucket
+          region
+          key
+        }
         supplier
         enabled
         createdAt
