@@ -1,0 +1,74 @@
+## [Start] Set query expression for @key **
+#set( $modelQueryExpression = {} )
+## [Start] Validate key arguments. **
+#if( !$util.isNull($ctx.args.max) && $util.isNull($ctx.args.zone) )
+  $util.error("When providing argument 'max' you must also provide arguments zone", "InvalidArgumentsError")
+#end
+## [End] Validate key arguments. **
+#if( !$util.isNull($ctx.args.zone) )
+  #set( $modelQueryExpression.expression = "#zone = :zone" )
+  #set( $modelQueryExpression.expressionNames = {
+  "#zone": "zone"
+} )
+  #set( $modelQueryExpression.expressionValues = {
+  ":zone": {
+      "S": "$ctx.args.zone"
+  }
+} )
+#end
+## [Start] Applying Key Condition **
+#if( !$util.isNull($ctx.args.max) && !$util.isNull($ctx.args.max.beginsWith) )
+  #set( $modelQueryExpression.expression = "$modelQueryExpression.expression AND begins_with(#sortKey, :sortKey)" )
+  $util.qr($modelQueryExpression.expressionNames.put("#sortKey", "max"))
+  $util.qr($modelQueryExpression.expressionValues.put(":sortKey", { "N": "$ctx.args.max.beginsWith" }))
+#end
+#if( !$util.isNull($ctx.args.max) && !$util.isNull($ctx.args.max.between) )
+  #set( $modelQueryExpression.expression = "$modelQueryExpression.expression AND #sortKey BETWEEN :sortKey0 AND :sortKey1" )
+  $util.qr($modelQueryExpression.expressionNames.put("#sortKey", "max"))
+  $util.qr($modelQueryExpression.expressionValues.put(":sortKey0", { "N": "$ctx.args.max.between[0]" }))
+  $util.qr($modelQueryExpression.expressionValues.put(":sortKey1", { "N": "$ctx.args.max.between[1]" }))
+#end
+#if( !$util.isNull($ctx.args.max) && !$util.isNull($ctx.args.max.eq) )
+  #set( $modelQueryExpression.expression = "$modelQueryExpression.expression AND #sortKey = :sortKey" )
+  $util.qr($modelQueryExpression.expressionNames.put("#sortKey", "max"))
+  $util.qr($modelQueryExpression.expressionValues.put(":sortKey", { "N": "$ctx.args.max.eq" }))
+#end
+#if( !$util.isNull($ctx.args.max) && !$util.isNull($ctx.args.max.lt) )
+  #set( $modelQueryExpression.expression = "$modelQueryExpression.expression AND #sortKey < :sortKey" )
+  $util.qr($modelQueryExpression.expressionNames.put("#sortKey", "max"))
+  $util.qr($modelQueryExpression.expressionValues.put(":sortKey", { "N": "$ctx.args.max.lt" }))
+#end
+#if( !$util.isNull($ctx.args.max) && !$util.isNull($ctx.args.max.le) )
+  #set( $modelQueryExpression.expression = "$modelQueryExpression.expression AND #sortKey <= :sortKey" )
+  $util.qr($modelQueryExpression.expressionNames.put("#sortKey", "max"))
+  $util.qr($modelQueryExpression.expressionValues.put(":sortKey", { "N": "$ctx.args.max.le" }))
+#end
+#if( !$util.isNull($ctx.args.max) && !$util.isNull($ctx.args.max.gt) )
+  #set( $modelQueryExpression.expression = "$modelQueryExpression.expression AND #sortKey > :sortKey" )
+  $util.qr($modelQueryExpression.expressionNames.put("#sortKey", "max"))
+  $util.qr($modelQueryExpression.expressionValues.put(":sortKey", { "N": "$ctx.args.max.gt" }))
+#end
+#if( !$util.isNull($ctx.args.max) && !$util.isNull($ctx.args.max.ge) )
+  #set( $modelQueryExpression.expression = "$modelQueryExpression.expression AND #sortKey >= :sortKey" )
+  $util.qr($modelQueryExpression.expressionNames.put("#sortKey", "max"))
+  $util.qr($modelQueryExpression.expressionValues.put(":sortKey", { "N": "$ctx.args.max.ge" }))
+#end
+## [End] Applying Key Condition **
+## [End] Set query expression for @key **
+#set( $limit = $util.defaultIfNull($context.args.limit, 100) )
+#set( $QueryRequest = {
+  "version": "2018-05-29",
+  "operation": "Query",
+  "limit": $limit,
+  "query": $modelQueryExpression,
+  "index": "zonemaxIndex"
+} )
+#if( !$util.isNull($ctx.args.sortDirection)
+                    && $ctx.args.sortDirection == "DESC" )
+  #set( $QueryRequest.scanIndexForward = false )
+#else
+  #set( $QueryRequest.scanIndexForward = true )
+#end
+#if( $context.args.nextToken ) #set( $QueryRequest.nextToken = $context.args.nextToken ) #end
+#if( $context.args.filter ) #set( $QueryRequest.filter = $util.parseJson("$util.transform.toDynamoDBFilterExpression($ctx.args.filter)") ) #end
+$util.toJson($QueryRequest)

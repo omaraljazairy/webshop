@@ -193,13 +193,126 @@ export const onDeleteMarketProduct = /* GraphQL */ `
     }
   }
 `;
+export const onCreateCountry = /* GraphQL */ `
+  subscription OnCreateCountry {
+    onCreateCountry {
+      id
+      code
+      name
+      zone
+      shippingDays
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateCountry = /* GraphQL */ `
+  subscription OnUpdateCountry {
+    onUpdateCountry {
+      id
+      code
+      name
+      zone
+      shippingDays
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteCountry = /* GraphQL */ `
+  subscription OnDeleteCountry {
+    onDeleteCountry {
+      id
+      code
+      name
+      zone
+      shippingDays
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateWeightZoneTariff = /* GraphQL */ `
+  subscription OnCreateWeightZoneTariff {
+    onCreateWeightZoneTariff {
+      id
+      zone
+      max
+      min
+      tariff
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateWeightZoneTariff = /* GraphQL */ `
+  subscription OnUpdateWeightZoneTariff {
+    onUpdateWeightZoneTariff {
+      id
+      zone
+      max
+      min
+      tariff
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteWeightZoneTariff = /* GraphQL */ `
+  subscription OnDeleteWeightZoneTariff {
+    onDeleteWeightZoneTariff {
+      id
+      zone
+      max
+      min
+      tariff
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateSessions = /* GraphQL */ `
+  subscription OnCreateSessions {
+    onCreateSessions {
+      id
+      ipaddress
+      userAgent
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateSessions = /* GraphQL */ `
+  subscription OnUpdateSessions {
+    onUpdateSessions {
+      id
+      ipaddress
+      userAgent
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteSessions = /* GraphQL */ `
+  subscription OnDeleteSessions {
+    onDeleteSessions {
+      id
+      ipaddress
+      userAgent
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateCustomer = /* GraphQL */ `
-  subscription OnCreateCustomer($username: String) {
-    onCreateCustomer(username: $username) {
+  subscription OnCreateCustomer {
+    onCreateCustomer {
       id
       username
       email
-      name
+      phone_number
+      fullName
+      locale
       shippingAddress {
         city
         country
@@ -207,9 +320,6 @@ export const onCreateCustomer = /* GraphQL */ `
         address_state
         address_zip
       }
-      phoneNumber
-      locale
-      phone_number
       createdAt
       updatedAt
       orders {
@@ -225,16 +335,19 @@ export const onCreateCustomer = /* GraphQL */ `
         }
         nextToken
       }
+      deleted
     }
   }
 `;
 export const onUpdateCustomer = /* GraphQL */ `
-  subscription OnUpdateCustomer($username: String) {
-    onUpdateCustomer(username: $username) {
+  subscription OnUpdateCustomer {
+    onUpdateCustomer {
       id
       username
       email
-      name
+      phone_number
+      fullName
+      locale
       shippingAddress {
         city
         country
@@ -242,9 +355,6 @@ export const onUpdateCustomer = /* GraphQL */ `
         address_state
         address_zip
       }
-      phoneNumber
-      locale
-      phone_number
       createdAt
       updatedAt
       orders {
@@ -260,16 +370,19 @@ export const onUpdateCustomer = /* GraphQL */ `
         }
         nextToken
       }
+      deleted
     }
   }
 `;
 export const onDeleteCustomer = /* GraphQL */ `
-  subscription OnDeleteCustomer($username: String) {
-    onDeleteCustomer(username: $username) {
+  subscription OnDeleteCustomer {
+    onDeleteCustomer {
       id
       username
       email
-      name
+      phone_number
+      fullName
+      locale
       shippingAddress {
         city
         country
@@ -277,9 +390,6 @@ export const onDeleteCustomer = /* GraphQL */ `
         address_state
         address_zip
       }
-      phoneNumber
-      locale
-      phone_number
       createdAt
       updatedAt
       orders {
@@ -295,6 +405,7 @@ export const onDeleteCustomer = /* GraphQL */ `
         }
         nextToken
       }
+      deleted
     }
   }
 `;
@@ -468,33 +579,6 @@ export const onCreateOrder = /* GraphQL */ `
     onCreateOrder {
       id
       sessionId
-      customer {
-        id
-        username
-        email
-        name
-        shippingAddress {
-          city
-          country
-          address_line1
-          address_state
-          address_zip
-        }
-        phoneNumber
-        locale
-        phone_number
-        createdAt
-        updatedAt
-        orders {
-          nextToken
-        }
-      }
-      status
-      cartIds
-      totalPrice
-      statusDescription
-      createdAt
-      updatedAt
       session {
         id
         ipaddress
@@ -502,6 +586,33 @@ export const onCreateOrder = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      customer {
+        id
+        username
+        email
+        phone_number
+        fullName
+        locale
+        shippingAddress {
+          city
+          country
+          address_line1
+          address_state
+          address_zip
+        }
+        createdAt
+        updatedAt
+        orders {
+          nextToken
+        }
+        deleted
+      }
+      status
+      cartIds
+      totalPrice
+      statusDescription
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -510,33 +621,6 @@ export const onUpdateOrder = /* GraphQL */ `
     onUpdateOrder {
       id
       sessionId
-      customer {
-        id
-        username
-        email
-        name
-        shippingAddress {
-          city
-          country
-          address_line1
-          address_state
-          address_zip
-        }
-        phoneNumber
-        locale
-        phone_number
-        createdAt
-        updatedAt
-        orders {
-          nextToken
-        }
-      }
-      status
-      cartIds
-      totalPrice
-      statusDescription
-      createdAt
-      updatedAt
       session {
         id
         ipaddress
@@ -544,6 +628,33 @@ export const onUpdateOrder = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      customer {
+        id
+        username
+        email
+        phone_number
+        fullName
+        locale
+        shippingAddress {
+          city
+          country
+          address_line1
+          address_state
+          address_zip
+        }
+        createdAt
+        updatedAt
+        orders {
+          nextToken
+        }
+        deleted
+      }
+      status
+      cartIds
+      totalPrice
+      statusDescription
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -552,33 +663,6 @@ export const onDeleteOrder = /* GraphQL */ `
     onDeleteOrder {
       id
       sessionId
-      customer {
-        id
-        username
-        email
-        name
-        shippingAddress {
-          city
-          country
-          address_line1
-          address_state
-          address_zip
-        }
-        phoneNumber
-        locale
-        phone_number
-        createdAt
-        updatedAt
-        orders {
-          nextToken
-        }
-      }
-      status
-      cartIds
-      totalPrice
-      statusDescription
-      createdAt
-      updatedAt
       session {
         id
         ipaddress
@@ -586,115 +670,31 @@ export const onDeleteOrder = /* GraphQL */ `
         createdAt
         updatedAt
       }
-    }
-  }
-`;
-export const onCreateCountry = /* GraphQL */ `
-  subscription OnCreateCountry {
-    onCreateCountry {
-      id
-      code
-      name
-      zone
-      shippingDays
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateCountry = /* GraphQL */ `
-  subscription OnUpdateCountry {
-    onUpdateCountry {
-      id
-      code
-      name
-      zone
-      shippingDays
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteCountry = /* GraphQL */ `
-  subscription OnDeleteCountry {
-    onDeleteCountry {
-      id
-      code
-      name
-      zone
-      shippingDays
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateWeightZoneTariff = /* GraphQL */ `
-  subscription OnCreateWeightZoneTariff {
-    onCreateWeightZoneTariff {
-      id
-      zone
-      max
-      min
-      tariff
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateWeightZoneTariff = /* GraphQL */ `
-  subscription OnUpdateWeightZoneTariff {
-    onUpdateWeightZoneTariff {
-      id
-      zone
-      max
-      min
-      tariff
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteWeightZoneTariff = /* GraphQL */ `
-  subscription OnDeleteWeightZoneTariff {
-    onDeleteWeightZoneTariff {
-      id
-      zone
-      max
-      min
-      tariff
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateSessions = /* GraphQL */ `
-  subscription OnCreateSessions {
-    onCreateSessions {
-      id
-      ipaddress
-      userAgent
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateSessions = /* GraphQL */ `
-  subscription OnUpdateSessions {
-    onUpdateSessions {
-      id
-      ipaddress
-      userAgent
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteSessions = /* GraphQL */ `
-  subscription OnDeleteSessions {
-    onDeleteSessions {
-      id
-      ipaddress
-      userAgent
+      customer {
+        id
+        username
+        email
+        phone_number
+        fullName
+        locale
+        shippingAddress {
+          city
+          country
+          address_line1
+          address_state
+          address_zip
+        }
+        createdAt
+        updatedAt
+        orders {
+          nextToken
+        }
+        deleted
+      }
+      status
+      cartIds
+      totalPrice
+      statusDescription
       createdAt
       updatedAt
     }
@@ -705,6 +705,13 @@ export const onCreateCart = /* GraphQL */ `
     onCreateCart {
       id
       sessionId
+      session {
+        id
+        ipaddress
+        userAgent
+        createdAt
+        updatedAt
+      }
       productId
       product {
         id
@@ -741,13 +748,6 @@ export const onCreateCart = /* GraphQL */ `
       totalPrice
       createdAt
       updatedAt
-      session {
-        id
-        ipaddress
-        userAgent
-        createdAt
-        updatedAt
-      }
     }
   }
 `;
@@ -756,6 +756,13 @@ export const onUpdateCart = /* GraphQL */ `
     onUpdateCart {
       id
       sessionId
+      session {
+        id
+        ipaddress
+        userAgent
+        createdAt
+        updatedAt
+      }
       productId
       product {
         id
@@ -792,13 +799,6 @@ export const onUpdateCart = /* GraphQL */ `
       totalPrice
       createdAt
       updatedAt
-      session {
-        id
-        ipaddress
-        userAgent
-        createdAt
-        updatedAt
-      }
     }
   }
 `;
@@ -807,6 +807,13 @@ export const onDeleteCart = /* GraphQL */ `
     onDeleteCart {
       id
       sessionId
+      session {
+        id
+        ipaddress
+        userAgent
+        createdAt
+        updatedAt
+      }
       productId
       product {
         id
@@ -843,13 +850,6 @@ export const onDeleteCart = /* GraphQL */ `
       totalPrice
       createdAt
       updatedAt
-      session {
-        id
-        ipaddress
-        userAgent
-        createdAt
-        updatedAt
-      }
     }
   }
 `;

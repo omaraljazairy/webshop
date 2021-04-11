@@ -465,7 +465,9 @@ export const createCustomer = /* GraphQL */ `
       id
       username
       email
-      name
+      phone_number
+      fullName
+      locale
       shippingAddress {
         city
         country
@@ -473,9 +475,6 @@ export const createCustomer = /* GraphQL */ `
         address_state
         address_zip
       }
-      phoneNumber
-      locale
-      phone_number
       createdAt
       updatedAt
       orders {
@@ -491,6 +490,7 @@ export const createCustomer = /* GraphQL */ `
         }
         nextToken
       }
+      deleted
     }
   }
 `;
@@ -503,7 +503,9 @@ export const updateCustomer = /* GraphQL */ `
       id
       username
       email
-      name
+      phone_number
+      fullName
+      locale
       shippingAddress {
         city
         country
@@ -511,9 +513,6 @@ export const updateCustomer = /* GraphQL */ `
         address_state
         address_zip
       }
-      phoneNumber
-      locale
-      phone_number
       createdAt
       updatedAt
       orders {
@@ -529,6 +528,7 @@ export const updateCustomer = /* GraphQL */ `
         }
         nextToken
       }
+      deleted
     }
   }
 `;
@@ -541,7 +541,9 @@ export const deleteCustomer = /* GraphQL */ `
       id
       username
       email
-      name
+      phone_number
+      fullName
+      locale
       shippingAddress {
         city
         country
@@ -549,9 +551,6 @@ export const deleteCustomer = /* GraphQL */ `
         address_state
         address_zip
       }
-      phoneNumber
-      locale
-      phone_number
       createdAt
       updatedAt
       orders {
@@ -567,6 +566,7 @@ export const deleteCustomer = /* GraphQL */ `
         }
         nextToken
       }
+      deleted
     }
   }
 `;
@@ -770,33 +770,6 @@ export const createOrder = /* GraphQL */ `
     createOrder(input: $input, condition: $condition) {
       id
       sessionId
-      customer {
-        id
-        username
-        email
-        name
-        shippingAddress {
-          city
-          country
-          address_line1
-          address_state
-          address_zip
-        }
-        phoneNumber
-        locale
-        phone_number
-        createdAt
-        updatedAt
-        orders {
-          nextToken
-        }
-      }
-      status
-      cartIds
-      totalPrice
-      statusDescription
-      createdAt
-      updatedAt
       session {
         id
         ipaddress
@@ -804,6 +777,33 @@ export const createOrder = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      customer {
+        id
+        username
+        email
+        phone_number
+        fullName
+        locale
+        shippingAddress {
+          city
+          country
+          address_line1
+          address_state
+          address_zip
+        }
+        createdAt
+        updatedAt
+        orders {
+          nextToken
+        }
+        deleted
+      }
+      status
+      cartIds
+      totalPrice
+      statusDescription
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -815,33 +815,6 @@ export const updateOrder = /* GraphQL */ `
     updateOrder(input: $input, condition: $condition) {
       id
       sessionId
-      customer {
-        id
-        username
-        email
-        name
-        shippingAddress {
-          city
-          country
-          address_line1
-          address_state
-          address_zip
-        }
-        phoneNumber
-        locale
-        phone_number
-        createdAt
-        updatedAt
-        orders {
-          nextToken
-        }
-      }
-      status
-      cartIds
-      totalPrice
-      statusDescription
-      createdAt
-      updatedAt
       session {
         id
         ipaddress
@@ -849,6 +822,33 @@ export const updateOrder = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      customer {
+        id
+        username
+        email
+        phone_number
+        fullName
+        locale
+        shippingAddress {
+          city
+          country
+          address_line1
+          address_state
+          address_zip
+        }
+        createdAt
+        updatedAt
+        orders {
+          nextToken
+        }
+        deleted
+      }
+      status
+      cartIds
+      totalPrice
+      statusDescription
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -860,33 +860,6 @@ export const deleteOrder = /* GraphQL */ `
     deleteOrder(input: $input, condition: $condition) {
       id
       sessionId
-      customer {
-        id
-        username
-        email
-        name
-        shippingAddress {
-          city
-          country
-          address_line1
-          address_state
-          address_zip
-        }
-        phoneNumber
-        locale
-        phone_number
-        createdAt
-        updatedAt
-        orders {
-          nextToken
-        }
-      }
-      status
-      cartIds
-      totalPrice
-      statusDescription
-      createdAt
-      updatedAt
       session {
         id
         ipaddress
@@ -894,6 +867,33 @@ export const deleteOrder = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      customer {
+        id
+        username
+        email
+        phone_number
+        fullName
+        locale
+        shippingAddress {
+          city
+          country
+          address_line1
+          address_state
+          address_zip
+        }
+        createdAt
+        updatedAt
+        orders {
+          nextToken
+        }
+        deleted
+      }
+      status
+      cartIds
+      totalPrice
+      statusDescription
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -905,6 +905,13 @@ export const createCart = /* GraphQL */ `
     createCart(input: $input, condition: $condition) {
       id
       sessionId
+      session {
+        id
+        ipaddress
+        userAgent
+        createdAt
+        updatedAt
+      }
       productId
       product {
         id
@@ -941,13 +948,6 @@ export const createCart = /* GraphQL */ `
       totalPrice
       createdAt
       updatedAt
-      session {
-        id
-        ipaddress
-        userAgent
-        createdAt
-        updatedAt
-      }
     }
   }
 `;
@@ -959,6 +959,13 @@ export const updateCart = /* GraphQL */ `
     updateCart(input: $input, condition: $condition) {
       id
       sessionId
+      session {
+        id
+        ipaddress
+        userAgent
+        createdAt
+        updatedAt
+      }
       productId
       product {
         id
@@ -995,13 +1002,6 @@ export const updateCart = /* GraphQL */ `
       totalPrice
       createdAt
       updatedAt
-      session {
-        id
-        ipaddress
-        userAgent
-        createdAt
-        updatedAt
-      }
     }
   }
 `;
@@ -1013,6 +1013,13 @@ export const deleteCart = /* GraphQL */ `
     deleteCart(input: $input, condition: $condition) {
       id
       sessionId
+      session {
+        id
+        ipaddress
+        userAgent
+        createdAt
+        updatedAt
+      }
       productId
       product {
         id
@@ -1049,13 +1056,6 @@ export const deleteCart = /* GraphQL */ `
       totalPrice
       createdAt
       updatedAt
-      session {
-        id
-        ipaddress
-        userAgent
-        createdAt
-        updatedAt
-      }
     }
   }
 `;

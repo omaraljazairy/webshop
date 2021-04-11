@@ -158,13 +158,114 @@ export const getUser = /* GraphQL */ `
     }
   }
 `;
+export const getCountry = /* GraphQL */ `
+  query GetCountry($id: ID!) {
+    getCountry(id: $id) {
+      id
+      code
+      name
+      zone
+      shippingDays
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listCountrys = /* GraphQL */ `
+  query ListCountrys(
+    $filter: ModelCountryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCountrys(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        code
+        name
+        zone
+        shippingDays
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getWeightZoneTariff = /* GraphQL */ `
+  query GetWeightZoneTariff($id: ID!) {
+    getWeightZoneTariff(id: $id) {
+      id
+      zone
+      max
+      min
+      tariff
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listWeightZoneTariffs = /* GraphQL */ `
+  query ListWeightZoneTariffs(
+    $filter: ModelWeightZoneTariffFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listWeightZoneTariffs(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        zone
+        max
+        min
+        tariff
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getSessions = /* GraphQL */ `
+  query GetSessions($id: ID!) {
+    getSessions(id: $id) {
+      id
+      ipaddress
+      userAgent
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listSessionss = /* GraphQL */ `
+  query ListSessionss(
+    $filter: ModelSessionsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listSessionss(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        ipaddress
+        userAgent
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getCustomer = /* GraphQL */ `
   query GetCustomer($id: ID!) {
     getCustomer(id: $id) {
       id
       username
       email
-      name
+      phone_number
+      fullName
+      locale
       shippingAddress {
         city
         country
@@ -172,9 +273,6 @@ export const getCustomer = /* GraphQL */ `
         address_state
         address_zip
       }
-      phoneNumber
-      locale
-      phone_number
       createdAt
       updatedAt
       orders {
@@ -190,6 +288,7 @@ export const getCustomer = /* GraphQL */ `
         }
         nextToken
       }
+      deleted
     }
   }
 `;
@@ -204,7 +303,9 @@ export const listCustomers = /* GraphQL */ `
         id
         username
         email
-        name
+        phone_number
+        fullName
+        locale
         shippingAddress {
           city
           country
@@ -212,14 +313,12 @@ export const listCustomers = /* GraphQL */ `
           address_state
           address_zip
         }
-        phoneNumber
-        locale
-        phone_number
         createdAt
         updatedAt
         orders {
           nextToken
         }
+        deleted
       }
       nextToken
     }
@@ -361,33 +460,6 @@ export const getOrder = /* GraphQL */ `
     getOrder(id: $id) {
       id
       sessionId
-      customer {
-        id
-        username
-        email
-        name
-        shippingAddress {
-          city
-          country
-          address_line1
-          address_state
-          address_zip
-        }
-        phoneNumber
-        locale
-        phone_number
-        createdAt
-        updatedAt
-        orders {
-          nextToken
-        }
-      }
-      status
-      cartIds
-      totalPrice
-      statusDescription
-      createdAt
-      updatedAt
       session {
         id
         ipaddress
@@ -395,6 +467,33 @@ export const getOrder = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      customer {
+        id
+        username
+        email
+        phone_number
+        fullName
+        locale
+        shippingAddress {
+          city
+          country
+          address_line1
+          address_state
+          address_zip
+        }
+        createdAt
+        updatedAt
+        orders {
+          nextToken
+        }
+        deleted
+      }
+      status
+      cartIds
+      totalPrice
+      statusDescription
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -408,23 +507,6 @@ export const listOrders = /* GraphQL */ `
       items {
         id
         sessionId
-        customer {
-          id
-          username
-          email
-          name
-          phoneNumber
-          locale
-          phone_number
-          createdAt
-          updatedAt
-        }
-        status
-        cartIds
-        totalPrice
-        statusDescription
-        createdAt
-        updatedAt
         session {
           id
           ipaddress
@@ -432,6 +514,332 @@ export const listOrders = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        customer {
+          id
+          username
+          email
+          phone_number
+          fullName
+          locale
+          createdAt
+          updatedAt
+          deleted
+        }
+        status
+        cartIds
+        totalPrice
+        statusDescription
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getCart = /* GraphQL */ `
+  query GetCart($id: ID!) {
+    getCart(id: $id) {
+      id
+      sessionId
+      session {
+        id
+        ipaddress
+        userAgent
+        createdAt
+        updatedAt
+      }
+      productId
+      product {
+        id
+        description
+        brandId
+        catalogId
+        brand {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        catalog {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        price
+        stock
+        weight
+        imageUrl
+        file {
+          bucket
+          region
+          key
+        }
+        supplier
+        enabled
+        createdAt
+        updatedAt
+      }
+      quantity
+      totalPrice
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listCarts = /* GraphQL */ `
+  query ListCarts(
+    $filter: ModelCartFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCarts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        sessionId
+        session {
+          id
+          ipaddress
+          userAgent
+          createdAt
+          updatedAt
+        }
+        productId
+        product {
+          id
+          description
+          brandId
+          catalogId
+          price
+          stock
+          weight
+          imageUrl
+          supplier
+          enabled
+          createdAt
+          updatedAt
+        }
+        quantity
+        totalPrice
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getOrderShipment = /* GraphQL */ `
+  query GetOrderShipment($id: ID!) {
+    getOrderShipment(id: $id) {
+      id
+      orderId
+      tracking
+      expedition
+      carrier
+      trackingURL
+      status
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listOrderShipments = /* GraphQL */ `
+  query ListOrderShipments(
+    $filter: ModelOrderShipmentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listOrderShipments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        orderId
+        tracking
+        expedition
+        carrier
+        trackingURL
+        status
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getOrderPayment = /* GraphQL */ `
+  query GetOrderPayment($id: ID!) {
+    getOrderPayment(id: $id) {
+      id
+      orderId
+      status
+      description
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listOrderPayments = /* GraphQL */ `
+  query ListOrderPayments(
+    $filter: ModelOrderPaymentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listOrderPayments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        orderId
+        status
+        description
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getEvents = /* GraphQL */ `
+  query GetEvents($id: ID!) {
+    getEvents(id: $id) {
+      id
+      orderId
+      type
+      status
+      description
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listEventss = /* GraphQL */ `
+  query ListEventss(
+    $filter: ModelEventsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listEventss(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        orderId
+        type
+        status
+        description
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const countryByCode = /* GraphQL */ `
+  query CountryByCode(
+    $code: String
+    $sortDirection: ModelSortDirection
+    $filter: ModelCountryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    countryByCode(
+      code: $code
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        code
+        name
+        zone
+        shippingDays
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getTariffByZone = /* GraphQL */ `
+  query GetTariffByZone(
+    $zone: String
+    $sortDirection: ModelSortDirection
+    $filter: ModelWeightZoneTariffFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    GetTariffByZone(
+      zone: $zone
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        zone
+        max
+        min
+        tariff
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getTariffByZoneWeight = /* GraphQL */ `
+  query GetTariffByZoneWeight(
+    $zone: String
+    $max: ModelFloatKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelWeightZoneTariffFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    GetTariffByZoneWeight(
+      zone: $zone
+      max: $max
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        zone
+        max
+        min
+        tariff
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getTariffByZoneMaxMin = /* GraphQL */ `
+  query GetTariffByZoneMaxMin(
+    $zone: String
+    $maxMin: ModelWeightZoneTariffZonemaxMinIndexCompositeKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelWeightZoneTariffFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    GetTariffByZoneMaxMin(
+      zone: $zone
+      maxMin: $maxMin
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        zone
+        max
+        min
+        tariff
+        createdAt
+        updatedAt
       }
       nextToken
     }
@@ -456,7 +864,9 @@ export const getCustomerByEmail = /* GraphQL */ `
         id
         username
         email
-        name
+        phone_number
+        fullName
+        locale
         shippingAddress {
           city
           country
@@ -464,14 +874,12 @@ export const getCustomerByEmail = /* GraphQL */ `
           address_state
           address_zip
         }
-        phoneNumber
-        locale
-        phone_number
         createdAt
         updatedAt
         orders {
           nextToken
         }
+        deleted
       }
       nextToken
     }
@@ -595,16 +1003,23 @@ export const getOrderBySession = /* GraphQL */ `
       items {
         id
         sessionId
+        session {
+          id
+          ipaddress
+          userAgent
+          createdAt
+          updatedAt
+        }
         customer {
           id
           username
           email
-          name
-          phoneNumber
-          locale
           phone_number
+          fullName
+          locale
           createdAt
           updatedAt
+          deleted
         }
         status
         cartIds
@@ -612,320 +1027,6 @@ export const getOrderBySession = /* GraphQL */ `
         statusDescription
         createdAt
         updatedAt
-        session {
-          id
-          ipaddress
-          userAgent
-          createdAt
-          updatedAt
-        }
-      }
-      nextToken
-    }
-  }
-`;
-export const getCountry = /* GraphQL */ `
-  query GetCountry($id: ID!) {
-    getCountry(id: $id) {
-      id
-      code
-      name
-      zone
-      shippingDays
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listCountrys = /* GraphQL */ `
-  query ListCountrys(
-    $filter: ModelCountryFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listCountrys(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        code
-        name
-        zone
-        shippingDays
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const countryByCode = /* GraphQL */ `
-  query CountryByCode(
-    $code: String
-    $sortDirection: ModelSortDirection
-    $filter: ModelCountryFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    countryByCode(
-      code: $code
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        code
-        name
-        zone
-        shippingDays
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getWeightZoneTariff = /* GraphQL */ `
-  query GetWeightZoneTariff($id: ID!) {
-    getWeightZoneTariff(id: $id) {
-      id
-      zone
-      max
-      min
-      tariff
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listWeightZoneTariffs = /* GraphQL */ `
-  query ListWeightZoneTariffs(
-    $filter: ModelWeightZoneTariffFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listWeightZoneTariffs(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        zone
-        max
-        min
-        tariff
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getTariffByZone = /* GraphQL */ `
-  query GetTariffByZone(
-    $zone: String
-    $sortDirection: ModelSortDirection
-    $filter: ModelWeightZoneTariffFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    GetTariffByZone(
-      zone: $zone
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        zone
-        max
-        min
-        tariff
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getTariffByZoneWeight = /* GraphQL */ `
-  query GetTariffByZoneWeight(
-    $zone: String
-    $max: ModelFloatKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelWeightZoneTariffFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    GetTariffByZoneWeight(
-      zone: $zone
-      max: $max
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        zone
-        max
-        min
-        tariff
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getTariffByZoneMaxMin = /* GraphQL */ `
-  query GetTariffByZoneMaxMin(
-    $zone: String
-    $maxMin: ModelWeightZoneTariffZonemaxMinIndexCompositeKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelWeightZoneTariffFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    GetTariffByZoneMaxMin(
-      zone: $zone
-      maxMin: $maxMin
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        zone
-        max
-        min
-        tariff
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const listSessionss = /* GraphQL */ `
-  query ListSessionss(
-    $filter: ModelSessionsFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listSessionss(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        ipaddress
-        userAgent
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getSessions = /* GraphQL */ `
-  query GetSessions($id: ID!) {
-    getSessions(id: $id) {
-      id
-      ipaddress
-      userAgent
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const getCart = /* GraphQL */ `
-  query GetCart($id: ID!) {
-    getCart(id: $id) {
-      id
-      sessionId
-      productId
-      product {
-        id
-        description
-        brandId
-        catalogId
-        brand {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        catalog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        price
-        stock
-        weight
-        imageUrl
-        file {
-          bucket
-          region
-          key
-        }
-        supplier
-        enabled
-        createdAt
-        updatedAt
-      }
-      quantity
-      totalPrice
-      createdAt
-      updatedAt
-      session {
-        id
-        ipaddress
-        userAgent
-        createdAt
-        updatedAt
-      }
-    }
-  }
-`;
-export const listCarts = /* GraphQL */ `
-  query ListCarts(
-    $filter: ModelCartFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listCarts(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        sessionId
-        productId
-        product {
-          id
-          description
-          brandId
-          catalogId
-          price
-          stock
-          weight
-          imageUrl
-          supplier
-          enabled
-          createdAt
-          updatedAt
-        }
-        quantity
-        totalPrice
-        createdAt
-        updatedAt
-        session {
-          id
-          ipaddress
-          userAgent
-          createdAt
-          updatedAt
-        }
       }
       nextToken
     }
@@ -949,6 +1050,13 @@ export const getOrderProductByProduct = /* GraphQL */ `
       items {
         id
         sessionId
+        session {
+          id
+          ipaddress
+          userAgent
+          createdAt
+          updatedAt
+        }
         productId
         product {
           id
@@ -968,13 +1076,6 @@ export const getOrderProductByProduct = /* GraphQL */ `
         totalPrice
         createdAt
         updatedAt
-        session {
-          id
-          ipaddress
-          userAgent
-          createdAt
-          updatedAt
-        }
       }
       nextToken
     }
@@ -998,6 +1099,13 @@ export const getProductsBySession = /* GraphQL */ `
       items {
         id
         sessionId
+        session {
+          id
+          ipaddress
+          userAgent
+          createdAt
+          updatedAt
+        }
         productId
         product {
           id
@@ -1015,50 +1123,6 @@ export const getProductsBySession = /* GraphQL */ `
         }
         quantity
         totalPrice
-        createdAt
-        updatedAt
-        session {
-          id
-          ipaddress
-          userAgent
-          createdAt
-          updatedAt
-        }
-      }
-      nextToken
-    }
-  }
-`;
-export const getOrderShipment = /* GraphQL */ `
-  query GetOrderShipment($id: ID!) {
-    getOrderShipment(id: $id) {
-      id
-      orderId
-      tracking
-      expedition
-      carrier
-      trackingURL
-      status
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listOrderShipments = /* GraphQL */ `
-  query ListOrderShipments(
-    $filter: ModelOrderShipmentFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listOrderShipments(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        orderId
-        tracking
-        expedition
-        carrier
-        trackingURL
-        status
         createdAt
         updatedAt
       }
@@ -1096,37 +1160,6 @@ export const getShipmentByOrderId = /* GraphQL */ `
     }
   }
 `;
-export const getOrderPayment = /* GraphQL */ `
-  query GetOrderPayment($id: ID!) {
-    getOrderPayment(id: $id) {
-      id
-      orderId
-      status
-      description
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listOrderPayments = /* GraphQL */ `
-  query ListOrderPayments(
-    $filter: ModelOrderPaymentFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listOrderPayments(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        orderId
-        status
-        description
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
 export const getPaymentByOrderId = /* GraphQL */ `
   query GetPaymentByOrderId(
     $orderId: String
@@ -1145,39 +1178,6 @@ export const getPaymentByOrderId = /* GraphQL */ `
       items {
         id
         orderId
-        status
-        description
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getEvents = /* GraphQL */ `
-  query GetEvents($id: ID!) {
-    getEvents(id: $id) {
-      id
-      orderId
-      type
-      status
-      description
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listEventss = /* GraphQL */ `
-  query ListEventss(
-    $filter: ModelEventsFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listEventss(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        orderId
-        type
         status
         description
         createdAt

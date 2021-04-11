@@ -1,6 +1,6 @@
 {
     "identityPoolName": "webshop6b922638_identitypool_6b922638",
-    "allowUnauthenticatedIdentities": true,
+    "allowUnauthenticatedIdentities": false,
     "resourceNameTruncated": "websho6b922638",
     "userPoolName": "webshop6b922638_userpool_6b922638",
     "autoVerifiedAttributes": [
@@ -60,28 +60,16 @@
         ]
     },
     "useDefault": "manual",
-    "thirdPartyAuth": false,
-    "userPoolGroups": true,
+    "userPoolGroups": false,
     "adminQueries": false,
-    "triggers": "{\n  \"PostConfirmation\": [\n    \"custom\"\n  ]\n}",
+    "triggers": "{}",
     "hostedUI": false,
-    "userPoolGroupList": [
-        "Admin"
-    ],
+    "userPoolGroupList": [],
     "serviceName": "Cognito",
     "parentStack": {
         "Ref": "AWS::StackId"
     },
     "permissions": [],
-    "dependsOn": [
-        {
-            "category": "function",
-            "resourceName": "webshop6b9226386b922638PostConfirmation",
-            "triggerProvider": "Cognito",
-            "attributes": [
-                "Arn",
-                "Name"
-            ]
-        }
-    ]
+    "dependsOn": [],
+    "thirdPartyAuth": false
 }

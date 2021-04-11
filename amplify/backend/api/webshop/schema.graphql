@@ -68,7 +68,7 @@ type ShippingAddress {
 
 type Country 
   @model
-  @auth(rules: [{allow: public, operations: [read]}])
+  # @auth(rules: [{allow: public, operations: [read]}])
   @key(name: "codeIndex", fields: ["code"], queryField: "countryByCode") {
   id: ID!
   code: String!
@@ -80,7 +80,7 @@ type Country
 
 type WeightZoneTariff 
   @model 
-  @auth(rules: [{allow: public, operations: [read]}])
+  # @auth(rules: [{allow: public, operations: [read]}])
   @key(name: "zoneIndex", fields: ["zone"], queryField: "GetTariffByZone")
   @key(name: "zonemaxIndex", fields: ["zone", "max"], queryField: "GetTariffByZoneWeight")
   @key(name: "zonemaxMinIndex", fields: ["zone", "max", "min"], queryField: "GetTariffByZoneMaxMin")
@@ -94,7 +94,7 @@ type WeightZoneTariff
 
 # add ipaddress
 type Sessions @model 
-@auth(rules: [{allow: public, operations: [read]}])
+# @auth(rules: [{allow: public, operations: [read]}])
 {
   id: ID!
   ipaddress: String
@@ -103,39 +103,23 @@ type Sessions @model
 }
 
 type Customer @model 
-@auth(rules: [
-  { allow: groups, groups: ["Admin"] },
-  { allow: owner, ownerField: "username", operations: [read] }
-  ])
+# @auth(rules: [
+#   { allow: groups, groups: ["Admin"] },
+#   { allow: owner, ownerField: "username", operations: [read, write] }
+#   ])
 @key(name: "byEmail", fields: ["email"], queryField: "GetCustomerByEmail") {
   id:ID!
   username: String!
   email: String!
-  name: String!
-  shippingAddress: ShippingAddress
-  phoneNumber: String
-  locale: String
   phone_number: String
+  fullName: String
+  locale: String
+  shippingAddress: ShippingAddress
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
   orders: [Order] @connection(name: "CustomerOrders", sortField: "createdAt")
+  deleted: String
 }
-
-# type CustomerShippingAddress @model 
-# @auth(rules: [
-#   { allow: owner, operations: [read] }
-#   ])
-# {
-#   id: ID!
-#   city: String!
-#   country: String
-#   street: String
-#   state: String
-#   zipcode: String
-#   phoneNumber: String
-#   createdAt: AWSDateTime!
-#   updatedAt: AWSDateTime!
-# }
 
 type Product @model
 # @auth(rules: [
@@ -210,7 +194,7 @@ type Order @model
 # }
 
 type Cart @model
-@auth(rules: [{allow: public, operations: [read]}])
+# @auth(rules: [{allow: public, operations: [read]}])
 @key(name: "productIdIndex", fields: ["productId"], queryField: "getOrderProductByProduct")
 @key(name: "bySessionId", fields: ["sessionId"], queryField: "getProductsBySession")
 {
@@ -225,7 +209,7 @@ type Cart @model
 }
 
 type OrderShipment @model
-@auth(rules: [{allow: public, operations: [read]}]) 
+# @auth(rules: [{allow: public, operations: [read]}]) 
 @key(name: "byOrderId", fields: ["orderId"], queryField: "getShipmentByOrderId")
 {
   id: ID!
@@ -239,7 +223,7 @@ type OrderShipment @model
 }
 
 type OrderPayment @model 
-@auth(rules: [{allow: public, operations: [read]}]) 
+# @auth(rules: [{allow: public, operations: [read]}]) 
 @key(name: "byOrderId", fields: ["orderId"], queryField: "getPaymentByOrderId")
 {
   id: ID!
@@ -250,7 +234,7 @@ type OrderPayment @model
 }
 
 type Events @model 
-@auth(rules: [{allow: public, operations: [read]}]) 
+# @auth(rules: [{allow: public, operations: [read]}]) 
 @key(name: "byOrderId", fields: ["orderId"], queryField: "getEventByOrderId") {
   id: ID!
   orderId: String!

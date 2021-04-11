@@ -1,0 +1,120 @@
+## [Start] Set query expression for @key **
+#set( $modelQueryExpression = {} )
+## [Start] Validate key arguments. **
+#if( !$util.isNull($ctx.args.maxMin) && $util.isNullOrBlank($ctx.args.zone) )
+  $util.error("When providing argument 'maxMin' you must also provide 'zone'.", "InvalidArgumentsError")
+#end
+#if( !$util.isNull($ctx.args.maxMin) )
+  #set( $sortKeyArgumentOperations = $ctx.args.maxMin.keySet() )
+  #if( $sortKeyArgumentOperations.size() > 1 )
+    $util.error("Argument maxMin must specify at most one key condition operation.", "InvalidArgumentsError")
+  #end
+  #foreach( $operation in $sortKeyArgumentOperations )
+    #if( $operation == "between" )
+      #if( $ctx.args.maxMin.between.size() != 2 )
+        $util.error("Argument 'maxMin.between' expects exactly two elements.", "InvalidArgumentsError")
+      #end
+      #if( !$util.isNullOrBlank($ctx.args.maxMin.between[0].min) && $util.isNullOrBlank($ctx.args.maxMin.between[0].max) )
+        $util.error("When providing argument 'maxMin.between[0].min' you must also provide 'maxMin.between[0].max'.", "InvalidArgumentsError")
+      #end
+      #if( !$util.isNullOrBlank($ctx.args.maxMin.between[1].min) && $util.isNullOrBlank($ctx.args.maxMin.between[1].max) )
+        $util.error("When providing argument 'maxMin.between[1].min' you must also provide 'maxMin.between[1].max'.", "InvalidArgumentsError")
+      #end
+    #else
+      #if( !$util.isNullOrBlank($ctx.args.maxMin.get("$operation").min) && $util.isNullOrBlank($ctx.args.maxMin.get("$operation").max) )
+        $util.error("When providing argument 'maxMin.$operation.min' you must also provide 'maxMin.$operation.max'.", "InvalidArgumentsError")
+      #end
+    #end
+  #end
+#end
+## [End] Validate key arguments. **
+#if( !$util.isNull($ctx.args.zone) )
+  #set( $modelQueryExpression.expression = "#zone = :zone" )
+  #set( $modelQueryExpression.expressionNames = {
+  "#zone": "zone"
+} )
+  #set( $modelQueryExpression.expressionValues = {
+  ":zone": {
+      "S": "$ctx.args.zone"
+  }
+} )
+#end
+## [Start] Applying Key Condition **
+#set( $sortKeyValue = "" )
+#set( $sortKeyValue2 = "" )
+#if( !$util.isNull($ctx.args.maxMin) && !$util.isNull($ctx.args.maxMin.beginsWith) )
+#if( !$util.isNull($ctx.args.maxMin.beginsWith.max) ) #set( $sortKeyValue = "$ctx.args.maxMin.beginsWith.max" ) #end
+#if( !$util.isNull($ctx.args.maxMin.beginsWith.min) ) #set( $sortKeyValue = "$sortKeyValue#$ctx.args.maxMin.beginsWith.min" ) #end
+  #set( $modelQueryExpression.expression = "$modelQueryExpression.expression AND begins_with(#sortKey, :sortKey)" )
+  $util.qr($modelQueryExpression.expressionNames.put("#sortKey", "max#min"))
+  $util.qr($modelQueryExpression.expressionValues.put(":sortKey", { "S": "$sortKeyValue" }))
+#end
+#if( !$util.isNull($ctx.args.maxMin) && !$util.isNull($ctx.args.maxMin.between) )
+  #if( $ctx.args.maxMin.between.size() != 2 )
+    $util.error("Argument maxMin.between expects exactly 2 elements.")
+  #end
+#if( !$util.isNull($ctx.args.maxMin.between[0].max) ) #set( $sortKeyValue = "$ctx.args.maxMin.between[0].max" ) #end
+#if( !$util.isNull($ctx.args.maxMin.between[0].min) ) #set( $sortKeyValue = "$sortKeyValue#$ctx.args.maxMin.between[0].min" ) #end
+#if( !$util.isNull($ctx.args.maxMin.between[1].max) ) #set( $sortKeyValue2 = "$ctx.args.maxMin.between[1].max" ) #end
+#if( !$util.isNull($ctx.args.maxMin.between[1].min) ) #set( $sortKeyValue2 = "$sortKeyValue2#$ctx.args.maxMin.between[1].min" ) #end
+  #set( $modelQueryExpression.expression = "$modelQueryExpression.expression AND #sortKey BETWEEN :sortKey0 AND :sortKey1" )
+  $util.qr($modelQueryExpression.expressionNames.put("#sortKey", "max#min"))
+  $util.qr($modelQueryExpression.expressionValues.put(":sortKey0", { "S": "$sortKeyValue" }))
+  $util.qr($modelQueryExpression.expressionValues.put(":sortKey1", { "S": "$sortKeyValue2" }))
+#end
+#if( !$util.isNull($ctx.args.maxMin) && !$util.isNull($ctx.args.maxMin.eq) )
+#if( !$util.isNull($ctx.args.maxMin.eq.max) ) #set( $sortKeyValue = "$ctx.args.maxMin.eq.max" ) #end
+#if( !$util.isNull($ctx.args.maxMin.eq.min) ) #set( $sortKeyValue = "$sortKeyValue#$ctx.args.maxMin.eq.min" ) #end
+  #set( $modelQueryExpression.expression = "$modelQueryExpression.expression AND #sortKey = :sortKey" )
+  $util.qr($modelQueryExpression.expressionNames.put("#sortKey", "max#min"))
+  $util.qr($modelQueryExpression.expressionValues.put(":sortKey", { "S": "$sortKeyValue" }))
+#end
+#if( !$util.isNull($ctx.args.maxMin) && !$util.isNull($ctx.args.maxMin.lt) )
+#if( !$util.isNull($ctx.args.maxMin.lt.max) ) #set( $sortKeyValue = "$ctx.args.maxMin.lt.max" ) #end
+#if( !$util.isNull($ctx.args.maxMin.lt.min) ) #set( $sortKeyValue = "$sortKeyValue#$ctx.args.maxMin.lt.min" ) #end
+  #set( $modelQueryExpression.expression = "$modelQueryExpression.expression AND #sortKey < :sortKey" )
+  $util.qr($modelQueryExpression.expressionNames.put("#sortKey", "max#min"))
+  $util.qr($modelQueryExpression.expressionValues.put(":sortKey", { "S": "$sortKeyValue" }))
+#end
+#if( !$util.isNull($ctx.args.maxMin) && !$util.isNull($ctx.args.maxMin.le) )
+#if( !$util.isNull($ctx.args.maxMin.le.max) ) #set( $sortKeyValue = "$ctx.args.maxMin.le.max" ) #end
+#if( !$util.isNull($ctx.args.maxMin.le.min) ) #set( $sortKeyValue = "$sortKeyValue#$ctx.args.maxMin.le.min" ) #end
+  #set( $modelQueryExpression.expression = "$modelQueryExpression.expression AND #sortKey <= :sortKey" )
+  $util.qr($modelQueryExpression.expressionNames.put("#sortKey", "max#min"))
+  $util.qr($modelQueryExpression.expressionValues.put(":sortKey", { "S": "$sortKeyValue" }))
+#end
+#if( !$util.isNull($ctx.args.maxMin) && !$util.isNull($ctx.args.maxMin.gt) )
+#if( !$util.isNull($ctx.args.maxMin.gt.max) ) #set( $sortKeyValue = "$ctx.args.maxMin.gt.max" ) #end
+#if( !$util.isNull($ctx.args.maxMin.gt.min) ) #set( $sortKeyValue = "$sortKeyValue#$ctx.args.maxMin.gt.min" ) #end
+  #set( $modelQueryExpression.expression = "$modelQueryExpression.expression AND #sortKey > :sortKey" )
+  $util.qr($modelQueryExpression.expressionNames.put("#sortKey", "max#min"))
+  $util.qr($modelQueryExpression.expressionValues.put(":sortKey", { "S": "$sortKeyValue" }))
+#end
+#if( !$util.isNull($ctx.args.maxMin) && !$util.isNull($ctx.args.maxMin.ge) )
+#if( !$util.isNull($ctx.args.maxMin.ge.max) ) #set( $sortKeyValue = "$ctx.args.maxMin.ge.max" ) #end
+#if( !$util.isNull($ctx.args.maxMin.ge.min) ) #set( $sortKeyValue = "$sortKeyValue#$ctx.args.maxMin.ge.min" ) #end
+  #set( $modelQueryExpression.expression = "$modelQueryExpression.expression AND #sortKey >= :sortKey" )
+  $util.qr($modelQueryExpression.expressionNames.put("#sortKey", "max#min"))
+  $util.qr($modelQueryExpression.expressionValues.put(":sortKey", { "S": "$sortKeyValue" }))
+#end
+
+
+## [End] Applying Key Condition **
+## [End] Set query expression for @key **
+#set( $limit = $util.defaultIfNull($context.args.limit, 100) )
+#set( $QueryRequest = {
+  "version": "2018-05-29",
+  "operation": "Query",
+  "limit": $limit,
+  "query": $modelQueryExpression,
+  "index": "zonemaxMinIndex"
+} )
+#if( !$util.isNull($ctx.args.sortDirection)
+                    && $ctx.args.sortDirection == "DESC" )
+  #set( $QueryRequest.scanIndexForward = false )
+#else
+  #set( $QueryRequest.scanIndexForward = true )
+#end
+#if( $context.args.nextToken ) #set( $QueryRequest.nextToken = $context.args.nextToken ) #end
+#if( $context.args.filter ) #set( $QueryRequest.filter = $util.parseJson("$util.transform.toDynamoDBFilterExpression($ctx.args.filter)") ) #end
+$util.toJson($QueryRequest)

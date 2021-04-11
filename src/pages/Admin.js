@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import '../../src/assets/css/admin.css';
 import { Storage, Auth, API, graphqlOperation } from 'aws-amplify';
+import { AmplifyAuthenticator} from '@aws-amplify/ui-react';
 import exports from '../aws-exports';
 import { listProducts } from '../graphql/queries';
 import { updateProduct } from '../graphql/mutations';
@@ -175,7 +176,7 @@ class Admin extends Component {
         // const showMessage = this.state.showMessage
         console.log('products from state: ', products)
         return (
-            <>
+            <AmplifyAuthenticator>
             <h2>Admin page {username} </h2>
             {showMessage ? <NotificationMessage text={textMessage} color={colorMessage} /> : null}
             <div className="menu">
@@ -194,7 +195,7 @@ class Admin extends Component {
                 : null}
 
             </div>
-            </>
+            </AmplifyAuthenticator>
         );
     }
 }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Router, Route, Switch } from 'react-router-dom';
-// import createBrowserHistory from 'history/createBrowserHistory';
 import { createBrowserHistory } from 'history';
 import Header from './components/Headers/Header';
 import Body  from './components/Body/Body';
@@ -11,6 +10,7 @@ import { Cart } from './pages/Cart';
 import Toys from './pages/Toys';
 import Admin from './pages/Admin';
 import Home from './pages/Home';
+import DeletedAccount from './pages/DeletedAccount';
 import Markets from './pages/Markets';
 import ProductCategory from './pages/ProductCategory';
 import { NoMatch } from './pages/NoMatch';
@@ -19,8 +19,8 @@ import Backdrop from './components/Backdrops/Backdrop';
 import Container from '@material-ui/core/Container';
 // import { Authenticator, AmplifyTheme } from 'aws-amplify-react';
 import { Auth, Hub, API, graphqlOperation } from 'aws-amplify'
-import { getUser } from './graphql/queries';
-import { registerUser } from './graphql/mutations';
+import { getCustomer } from './graphql/queries';
+import { createCustomer } from './graphql/mutations';
 import ReactNotification from 'react-notifications-component';
 
 export const history = createBrowserHistory()
@@ -34,8 +34,13 @@ class App extends Component {
   };
 
   componentDidMount() {
+    console.log("component did mount in App")
     this.getUserData();
     Hub.listen('auth', this, 'onHubCapsule')
+  }
+
+  componentDidUpdate() {
+    console.log("component did update in App")
   }
 
   getUserData = async () => {
@@ -47,18 +52,22 @@ class App extends Component {
     } catch(err) {
       console.log('no user returned: ', err)
     }
-
   }
 
+
+
   onHubCapsule = capsule => {
+    console.log("capsule.payload: ", capsule.payload)
     switch(capsule.payload.event) {
       case "signIn":
         console.log('signed in')
+        // this.registerNewUser(capsule.payload.data)
+        this.registerNewCustomer(capsule.payload.data)
         this.getUserData()
-        this.registerNewUser(capsule.payload.data)
         break;
       case "signUp":
         console.log('sign Up');
+        
         break;
       case "signOut":
         console.log('signed out')
@@ -69,25 +78,31 @@ class App extends Component {
     }
   }
 
-  registerNewUser = async signedInData => {
-    const getUserInput = {
+
+
+  /**
+   * register a new customer user by taking the singedIdData form the Auth api.
+   * @param {object} signedInData - user object from the Auth api
+   */
+  registerNewCustomer = async signedInData => {
+    const getCustomerInput = {
       id: signedInData.signInUserSession.idToken.payload.sub
     }
-    const { data } = await API.graphql(graphqlOperation(getUser, getUserInput))
-    // if the user is not found, than the user hasn't been registered. so the user will be saved in the db. 
-    if (!data.getUser) {
+    const { data } = await API.graphql(graphqlOperation(getCustomer, getCustomerInput))
+    // if the customer is not found, than the customer hasn't been registered. so the customer will be saved in the db. 
+    if (!data.getCustomer) {
       try {
-        const registerUserInput = {
-          ...getUserInput,
+        const registerCustomerInput = {
+          ...getCustomerInput,
           username: signedInData.username,
           email: signedInData.signInUserSession.idToken.payload.email,
-          registered: true
+          phone_number: signedInData.signInUserSession.idToken.payload.phone_number
         }
-        const result = await API.graphql(graphqlOperation(registerUser, { input: registerUserInput} ));
-        console.log('new user registered: ', result);
+        const result = await API.graphql(graphqlOperation(createCustomer, { input: registerCustomerInput} ));
+        console.log('new customer registered: ', result);
 
       } catch(err) {
-        console.error("Error registering the user", err)
+        console.error("Error registering the customer", err)
       }
     }
 
@@ -129,6 +144,7 @@ class App extends Component {
               <ReactNotification />
               <Switch>
                 <Route exact path='/' component={Home} />
+                <Route exact path='/confirm' component={DeletedAccount} />
                 <Route path='/account' component={() => ( <Account user={user} /> )} />
                 <Route path='/admin' component={() => ( <Admin user={user} /> )} />
                 <Route path='/cart' component={Cart} />

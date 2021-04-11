@@ -9,18 +9,6 @@ Parameters:
     Type: String
   
   
-  
-  
-  functionwebshop6b9226386b922638PostConfirmationArn: 
-    Type: String
-    Default: functionwebshop6b9226386b922638PostConfirmationArn
-  
-  functionwebshop6b9226386b922638PostConfirmationName: 
-    Type: String
-    Default: functionwebshop6b9226386b922638PostConfirmationName
-  
-  
-  
 
     
   identityPoolName:
@@ -98,9 +86,6 @@ Parameters:
   useDefault:
     Type: String
                 
-  thirdPartyAuth:
-    Type: String
-              
   userPoolGroups:
     Type: String
               
@@ -127,7 +112,10 @@ Parameters:
               
   dependsOn:
     Type: CommaDelimitedList
-    
+        
+  thirdPartyAuth:
+    Type: String
+                      
 Conditions:
   ShouldNotCreateEnvResources: !Equals [ !Ref env, NONE ]
 
@@ -181,19 +169,6 @@ Resources:
         
       
       
-      LambdaConfig:
-        
-        
-        
-        
-        
-          PostConfirmation: !Ref functionwebshop6b9226386b922638PostConfirmationArn
-        
-        
-        
-        
-        
-      
       
       AutoVerifiedAttributes: !Ref autoVerifiedAttributes
       
@@ -220,15 +195,6 @@ Resources:
     
   
     
-  
-  UserPoolPostConfirmationLambdaInvokePermission: 
-    Type: "AWS::Lambda::Permission"
-    DependsOn: UserPool
-    Properties: 
-      Action: "lambda:invokeFunction"
-      Principal: "cognito-idp.amazonaws.com"
-      FunctionName: !Ref functionwebshop6b9226386b922638PostConfirmationName
-      SourceArn: !GetAtt UserPool.Arn
     
   
   
