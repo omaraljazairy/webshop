@@ -1,0 +1,13 @@
+{
+    "category": {
+        "hair": "Cabello",
+        "hygiene": "Higiene",
+        "makeup": "Maquillaje",
+        "perfumes": "Perfumes",
+        "suncare": "Cuidado Solar"
+    },
+    "greeting": {
+        "welcome_to_react": "bienvenido"
+    }
+    
+}

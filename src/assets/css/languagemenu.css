@@ -1,0 +1,22 @@
+.main {
+    /* padding-left: 5px; */
+    margin-right: 10px;
+    background-color: none;
+}
+
+.dropdown-container select {
+    /* for Firefox */
+    -moz-appearance: none;
+    /* for Safari, Chrome, Opera */
+    -webkit-appearance: none;
+    background-color: transparent;
+    color: white;
+    border: none;
+    /* padding-left: 10px; */
+    margin-right: 10px;
+  }
+
+  /* for IE10 */
+  .dropdown-container select::-ms-expand {
+    display: none;
+  }

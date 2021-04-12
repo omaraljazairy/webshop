@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import './App.css';
 import { Router, Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
@@ -7,21 +7,23 @@ import Body  from './components/Body/Body';
 import Footer from './components/Footers/Footer';
 import Account from './pages/Account';
 import { Cart } from './pages/Cart';
-import Toys from './pages/Toys';
+import Hair from './pages/Hair';
 import Admin from './pages/Admin';
-import Home from './pages/Home';
+import Hygiene from './pages/Hygiene';
 import DeletedAccount from './pages/DeletedAccount';
-import Markets from './pages/Markets';
-import ProductCategory from './pages/ProductCategory';
+import Perfume from './pages/Perfume';
+import Suncare from './pages/Suncare';
+import Makeup from './pages/Makeup';
 import { NoMatch } from './pages/NoMatch';
-import SideDrawer from './components/SideDrawers/SideDrawer';
-import Backdrop from './components/Backdrops/Backdrop';
+// import SideDrawer from './components/SideDrawers/SideDrawer';
+// import Backdrop from './components/Backdrops/Backdrop';
 import Container from '@material-ui/core/Container';
 // import { Authenticator, AmplifyTheme } from 'aws-amplify-react';
 import { Auth, Hub, API, graphqlOperation } from 'aws-amplify'
 import { getCustomer } from './graphql/queries';
 import { createCustomer } from './graphql/mutations';
 import ReactNotification from 'react-notifications-component';
+import { withNamespaces } from 'react-i18next';
 
 export const history = createBrowserHistory()
 export const UserContext =  React.createContext()
@@ -29,7 +31,7 @@ export const UserContext =  React.createContext()
 class App extends Component {
 
   state = {
-    sideDrawerOpen: false,
+    // sideDrawerOpen: false,
     user: null
   };
 
@@ -112,45 +114,52 @@ class App extends Component {
 
 
 
-  drawerToggleHandler = () => {
-    this.setState((prevState) => {
-      return {sideDrawerOpen: !prevState.sideDrawerOpen}
-    });
-  }
+  // drawerToggleHandler = () => {
+  //   this.setState((prevState) => {
+  //     return {sideDrawerOpen: !prevState.sideDrawerOpen}
+  //   });
+  // }
 
-  backdropToggleHandler = () => {
-    this.setState({sideDrawerOpen: false});
-  }
+  // backdropToggleHandler = () => {
+  //   this.setState({sideDrawerOpen: false});
+  // }
 
 
   render() {
     let backdrop;
     const {user} = this.state;
+    // const { t, I18n } = useTranslation();
 
-    if (this.state.sideDrawerOpen) {
-      backdrop = <Backdrop click={this.backdropToggleHandler} />;
-    }
+    // if (this.state.sideDrawerOpen) {
+    //   backdrop = <Backdrop click={this.backdropToggleHandler} />;
+    // }
     console.log("state user from render: ", user)
 
     return (
       <>
+      <Suspense fallback="loading">
       <UserContext.Provider value={{user: user}}>
         <Router history={history}>
           <Header drawerHandler={this.drawerToggleHandler}/>
-          <SideDrawer show={this.state.sideDrawerOpen} drawerHandler={this.drawerToggleHandler}/>
+          {/* <SideDrawer show={this.state.sideDrawerOpen} drawerHandler={this.drawerToggleHandler}/> */}
           {backdrop}
           <Container maxWidth="md">
             <Body>
               <ReactNotification />
               <Switch>
-                <Route exact path='/' component={Home} />
+                <Route exact path='/' component={Hair} />
                 <Route exact path='/confirm' component={DeletedAccount} />
                 <Route path='/account' component={() => ( <Account user={user} /> )} />
                 <Route path='/admin' component={() => ( <Admin user={user} /> )} />
                 <Route path='/cart' component={Cart} />
-                <Route path='/clothes' render={(props) => ( <ProductCategory category={'clothes'} /> )} />
-                <Route path='/markets/:marketId' component={({ match }) => <Markets marketId={match.params.marketId} user={user} />} category='markets' />
-                <Route path='/toys' component={Toys} />
+                <Route path='/hygiene' component={Hygiene} />
+                <Route path='/perfume' component={Perfume} />
+                <Route path='/suncare' component={Suncare} />
+                <Route path='/makeup' component={Makeup} />
+
+                {/* <Route path='/clothes' render={(props) => ( <ProductCategory category={'clothes'} /> )} />
+                <Route path='/markets/:marketId' component={({ match }) => <Markets marketId={match.params.marketId} user={user} />} category='markets' /> */}
+                
                 <Route component={NoMatch} />
               </Switch>
             </Body>
@@ -158,6 +167,7 @@ class App extends Component {
           <Footer />
         </Router>
       </UserContext.Provider>
+      </Suspense>
      </>
     );
   }
@@ -172,4 +182,5 @@ class App extends Component {
 // };
 
 // export default withAuthenticator(App,  true, [], null );
-export default App;
+// export default App;
+export default withNamespaces()(App);

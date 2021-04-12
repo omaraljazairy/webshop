@@ -1,13 +1,14 @@
 .header {
     position: fixed;
     width: 100%;
-    background: #1f1f80;
+    background: #5454e9;
     height: 40px;
     top: 0;
     left: 0;
     z-index: 1;
-    font-family: 'Arial';
-    font-weight: 'normal';
+    font-family: fantasy;
+    font-weight: bolder;
+    font-size: larger;
 }
 
 .header__navigation {
@@ -34,7 +35,7 @@
 }
 
 .header__navigation-items a:hover {
-    /* color: yellow; */
+    color: yellow;
     text-decoration: none;
  }
 
