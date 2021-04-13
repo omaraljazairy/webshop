@@ -120,7 +120,6 @@ class App extends Component {
   //   this.setState({sideDrawerOpen: false});
   // }
 
-
   render() {
     let backdrop;
     const {user} = this.state;
