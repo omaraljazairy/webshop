@@ -110,10 +110,6 @@ class App extends Component {
 
   }
 
-
-
-
-
   // drawerToggleHandler = () => {
   //   this.setState((prevState) => {
   //     return {sideDrawerOpen: !prevState.sideDrawerOpen}
