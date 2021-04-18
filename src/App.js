@@ -15,8 +15,8 @@ import Perfume from './pages/Perfume';
 import Suncare from './pages/Suncare';
 import Makeup from './pages/Makeup';
 import { NoMatch } from './pages/NoMatch';
-// import SideDrawer from './components/SideDrawers/SideDrawer';
-// import Backdrop from './components/Backdrops/Backdrop';
+import SideDrawer from './components/SideDrawers/SideDrawer';
+import Backdrop from './components/Backdrops/Backdrop';
 import Container from '@material-ui/core/Container';
 // import { Authenticator, AmplifyTheme } from 'aws-amplify-react';
 import { Auth, Hub, API, graphqlOperation } from 'aws-amplify'
@@ -31,7 +31,7 @@ export const UserContext =  React.createContext()
 class App extends Component {
 
   state = {
-    // sideDrawerOpen: false,
+    sideDrawerOpen: false,
     user: null
   };
 
@@ -110,24 +110,24 @@ class App extends Component {
 
   }
 
-  // drawerToggleHandler = () => {
-  //   this.setState((prevState) => {
-  //     return {sideDrawerOpen: !prevState.sideDrawerOpen}
-  //   });
-  // }
+  drawerToggleHandler = () => {
+    this.setState((prevState) => {
+      return {sideDrawerOpen: !prevState.sideDrawerOpen}
+    });
+  }
 
-  // backdropToggleHandler = () => {
-  //   this.setState({sideDrawerOpen: false});
-  // }
+  backdropToggleHandler = () => {
+    this.setState({sideDrawerOpen: false});
+  }
 
   render() {
     let backdrop;
     const {user} = this.state;
     // const { t, I18n } = useTranslation();
 
-    // if (this.state.sideDrawerOpen) {
-    //   backdrop = <Backdrop click={this.backdropToggleHandler} />;
-    // }
+    if (this.state.sideDrawerOpen) {
+      backdrop = <Backdrop click={this.backdropToggleHandler} />;
+    }
     console.log("state user from render: ", user)
 
     return (
@@ -136,7 +136,7 @@ class App extends Component {
       <UserContext.Provider value={{user: user}}>
         <Router history={history}>
           <Header drawerHandler={this.drawerToggleHandler}/>
-          {/* <SideDrawer show={this.state.sideDrawerOpen} drawerHandler={this.drawerToggleHandler}/> */}
+          <SideDrawer show={this.state.sideDrawerOpen} drawerHandler={this.drawerToggleHandler}/>
           {backdrop}
           <Container maxWidth="md">
             <Body>

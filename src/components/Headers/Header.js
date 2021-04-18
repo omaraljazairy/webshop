@@ -3,7 +3,7 @@ import i18n from '../../i18n';
 import { NavLink } from 'react-router-dom';
 import '../../assets/css/header.css'
 import { Icon } from 'semantic-ui-react';
-// import DrawerToggleButton from '../SideDrawers/DrawerToggleButton';
+import DrawerToggleButton from '../SideDrawers/DrawerToggleButton';
 import LanguageMenu from '../Menu/LanguageMenu';
 
 const Header = props => {
@@ -18,9 +18,9 @@ const Header = props => {
     return (
         <header className="header">
             <nav className="header__navigation">
-                {/* <div>
+                <div className="header__toggle-button">
                     <DrawerToggleButton click={props.drawerHandler} />
-                </div> */}
+                </div>
 
                 <div className="header__navigation-items">
                     <NavLink exact strict to='/' activeClassName='active' >{i18n.t('category.hair')}</NavLink>

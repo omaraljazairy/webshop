@@ -6,7 +6,7 @@
     top: 0;
     left: 0;
     z-index: 1;
-    font-family: fantasy;
+    /* font-family: fantasy; */
     font-weight: bolder;
     font-size: larger;
 }
@@ -55,4 +55,21 @@
 
 .header__cart_account a{
     color: white;
+}
+
+@media (max-width: 768px) {
+    .header__navigation-items {
+        display: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .header__toggle-button {
+        display: none;
+    }
+
+    .header__logo {
+        margin-left: 0;
+    }
+    
 }
