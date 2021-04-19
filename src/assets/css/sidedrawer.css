@@ -36,7 +36,7 @@
 }
 
 .side-drawer a:hover {
-    color: yellow;
+    font-size: large;
     text-decoration: none;
 }
 
@@ -54,16 +54,30 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    color: #13178C;
+    color: #5454e9;
     text-align: center;
     font-family: 'Arial';
     font-weight: 'normal';
     clear: both;
     margin-top: 0;
-    background-color: #13178C;
-    height: 64px;
+    background-color: #5454e9;
+    height: 40px;
 }
 
+.side-drawer__header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    color: #5454e9;
+    text-align: center;
+    font-family: 'Arial';
+    font-weight: 'normal';
+    clear: both;
+    margin-top: 0;
+    background-color: #5454e9;
+    height: 40px;
+}
 
 .follow-us-icons__links {
     margin: 0.5rem 0.5rem 0; 

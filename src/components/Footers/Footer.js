@@ -9,7 +9,7 @@ const Footer = () => (
         <Container>
           <Row className="justify-content-md-center">
             <Col sm='auto'>
-              <span>Copyright © 2020 fedal.nl. All Rights Reserved</span>
+              <span>Copyright © 2021 fedal.nl. All Rights Reserved</span>
             </Col>
           </Row>
         </Container>

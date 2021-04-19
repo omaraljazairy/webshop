@@ -14,54 +14,43 @@ import logo from '../../assets/img/logo_size.jpg';
 import '../../assets/css/sidedrawer.css';
 
 const SideDrawer = props => {
+
     let drawerClasses = ['side-drawer'];
+
     if (props.show) {
         drawerClasses = ['side-drawer', 'open'];
     }
-
-    // const handleLanguageSelection = (optionSelected) => {
-    //     var language = optionSelected.target.value
-    //     console.log('language value received: ', language)
-    //     i18n.changeLanguage(language)
-    // }
-
-
-    // const styles = {
-    //     icons: {
-    //         width: 18,
-    //         height: 18,
-    //     }
-    // }    
 
     return (
         <div className={drawerClasses.join(' ')}>
             <div className="side-drawer__logo">
                 <Image src={logo} width='100%' height='150' alt='header'  />
             </div>
+            <div className="side-drawer__header">
+            </div>
             <nav>
                 <div className="side-drawer-items">
                     {/* <Image src={homeIcon} style={styles.icons} alt="home"/>  */}
-                    <NavLink exact strict to='/' activeClassName='active' >{i18n.t('category.hair')}</NavLink>
+                    <NavLink exact strict to='/' activeClassName='active' onClick={props.drawerHandler}>{i18n.t('category.hair')}</NavLink>
                 </div>
                 <div className="side-drawer-items">
                     {/* <Image src={aboutIcon} style={styles.icons} alt="home"/>  */}
-                    <NavLink exact to='/hygiene' activeClassName='active'>{i18n.t('category.hygiene')}</NavLink>
+                    <NavLink exact to='/hygiene' activeClassName='active' onClick={props.drawerHandler}>{i18n.t('category.hygiene')}</NavLink>
                 </div>
                 <div className="side-drawer-items">
                     {/* <Image src={servicesIcon} style={styles.icons} alt="home"/>  */}
-                    <NavLink exact to='/makeup' activeClassName='active'>{i18n.t('category.makeup')}</NavLink>
+                    <NavLink exact to='/makeup' activeClassName='active' onClick={props.drawerHandler}>{i18n.t('category.makeup')}</NavLink>
                 </div>
                 <div className="side-drawer-items">
                     {/* <Image src={parkingIcon} style={styles.icons} alt="home"/>  */}
-                    <NavLink exact to='/perfume' activeClassName='active'>{i18n.t('category.perfumes')}</NavLink>
+                    <NavLink exact to='/perfume' activeClassName='active' onClick={props.drawerHandler}>{i18n.t('category.perfumes')}</NavLink>
                 </div>
                 <div className="side-drawer-items">
                     {/* <Image src={gasstationIcon} style={styles.icons} alt="home"/>  */}
-                    <NavLink exact to='/suncare' activeClassName='active'>{i18n.t('category.suncare')}</NavLink>
+                    <NavLink exact to='/suncare' activeClassName='active' onClick={props.drawerHandler}>{i18n.t('category.suncare')}</NavLink>
                 </div>
             </nav>
             <div className="side-drawer__footer">
-                <h2>Footer</h2>
             </div>
         </div>
     );

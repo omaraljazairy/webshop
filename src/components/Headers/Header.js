@@ -14,7 +14,6 @@ const Header = props => {
         i18n.changeLanguage(language)
     }
 
-
     return (
         <header className="header">
             <nav className="header__navigation">
@@ -23,7 +22,7 @@ const Header = props => {
                 </div>
 
                 <div className="header__navigation-items">
-                    <NavLink exact strict to='/' activeClassName='active' >{i18n.t('category.hair')}</NavLink>
+                    <NavLink exact strict to='/' activeClassName='active'>{i18n.t('category.hair')}</NavLink>
                     <NavLink exact to='/hygiene' activeClassName='active'>{i18n.t('category.hygiene')}</NavLink>
                     <NavLink exact to='/makeup' activeClassName='active'>{i18n.t('category.makeup')}</NavLink>
                     <NavLink exact to='/perfume' activeClassName='active'>{i18n.t('category.perfumes')}</NavLink>
