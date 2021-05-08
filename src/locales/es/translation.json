@@ -8,6 +8,13 @@
     },
     "greeting": {
         "welcome_to_react": "bienvenido"
+    },
+    "product_specifications" : {
+        "stock": "Existencias",
+        "weight": "Peso",
+        "quantity": "Cantidad",
+        "price": "Precio",
+        "item": "Articulo"
     }
     
 }

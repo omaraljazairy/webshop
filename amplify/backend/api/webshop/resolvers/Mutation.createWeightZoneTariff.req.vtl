@@ -25,7 +25,9 @@ $util.qr($context.args.input.put("updatedAt", $util.defaultIfNull($ctx.args.inpu
 #else
   $util.qr($dynamodbNameOverrideMap.put("max#min", "maxMin"))
 #end
-$util.qr($ctx.args.input.put("max#min","${ctx.args.input.max}#${ctx.args.input.min}"))
+#if( $hasSeenSomeKeyArg )
+  $util.qr($ctx.args.input.put("max#min","${ctx.args.input.max}#${ctx.args.input.min}"))
+#end
 
 
 

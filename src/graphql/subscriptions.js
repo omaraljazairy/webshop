@@ -409,171 +409,6 @@ export const onDeleteCustomer = /* GraphQL */ `
     }
   }
 `;
-export const onCreateProduct = /* GraphQL */ `
-  subscription OnCreateProduct {
-    onCreateProduct {
-      id
-      description
-      brandId
-      catalogId
-      brand {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      catalog {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      price
-      stock
-      weight
-      imageUrl
-      file {
-        bucket
-        region
-        key
-      }
-      supplier
-      enabled
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateProduct = /* GraphQL */ `
-  subscription OnUpdateProduct {
-    onUpdateProduct {
-      id
-      description
-      brandId
-      catalogId
-      brand {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      catalog {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      price
-      stock
-      weight
-      imageUrl
-      file {
-        bucket
-        region
-        key
-      }
-      supplier
-      enabled
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteProduct = /* GraphQL */ `
-  subscription OnDeleteProduct {
-    onDeleteProduct {
-      id
-      description
-      brandId
-      catalogId
-      brand {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      catalog {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      price
-      stock
-      weight
-      imageUrl
-      file {
-        bucket
-        region
-        key
-      }
-      supplier
-      enabled
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateBrand = /* GraphQL */ `
-  subscription OnCreateBrand {
-    onCreateBrand {
-      id
-      name
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateBrand = /* GraphQL */ `
-  subscription OnUpdateBrand {
-    onUpdateBrand {
-      id
-      name
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteBrand = /* GraphQL */ `
-  subscription OnDeleteBrand {
-    onDeleteBrand {
-      id
-      name
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateCatalog = /* GraphQL */ `
-  subscription OnCreateCatalog {
-    onCreateCatalog {
-      id
-      name
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateCatalog = /* GraphQL */ `
-  subscription OnUpdateCatalog {
-    onUpdateCatalog {
-      id
-      name
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteCatalog = /* GraphQL */ `
-  subscription OnDeleteCatalog {
-    onDeleteCatalog {
-      id
-      name
-      createdAt
-      updatedAt
-    }
-  }
-`;
 export const onCreateOrder = /* GraphQL */ `
   subscription OnCreateOrder {
     onCreateOrder {
@@ -713,23 +548,15 @@ export const onCreateCart = /* GraphQL */ `
         updatedAt
       }
       productId
+      quantity
+      totalPrice
+      createdAt
+      updatedAt
       product {
         id
         description
         brandId
         catalogId
-        brand {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        catalog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
         price
         stock
         weight
@@ -743,11 +570,19 @@ export const onCreateCart = /* GraphQL */ `
         enabled
         createdAt
         updatedAt
+        brand {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        catalog {
+          id
+          name
+          createdAt
+          updatedAt
+        }
       }
-      quantity
-      totalPrice
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -764,23 +599,15 @@ export const onUpdateCart = /* GraphQL */ `
         updatedAt
       }
       productId
+      quantity
+      totalPrice
+      createdAt
+      updatedAt
       product {
         id
         description
         brandId
         catalogId
-        brand {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        catalog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
         price
         stock
         weight
@@ -794,11 +621,19 @@ export const onUpdateCart = /* GraphQL */ `
         enabled
         createdAt
         updatedAt
+        brand {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        catalog {
+          id
+          name
+          createdAt
+          updatedAt
+        }
       }
-      quantity
-      totalPrice
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -815,23 +650,15 @@ export const onDeleteCart = /* GraphQL */ `
         updatedAt
       }
       productId
+      quantity
+      totalPrice
+      createdAt
+      updatedAt
       product {
         id
         description
         brandId
         catalogId
-        brand {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        catalog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
         price
         stock
         weight
@@ -845,11 +672,19 @@ export const onDeleteCart = /* GraphQL */ `
         enabled
         createdAt
         updatedAt
+        brand {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        catalog {
+          id
+          name
+          createdAt
+          updatedAt
+        }
       }
-      quantity
-      totalPrice
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -968,6 +803,171 @@ export const onDeleteEvents = /* GraphQL */ `
       type
       status
       description
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateProduct = /* GraphQL */ `
+  subscription OnCreateProduct {
+    onCreateProduct {
+      id
+      description
+      brandId
+      catalogId
+      price
+      stock
+      weight
+      imageUrl
+      file {
+        bucket
+        region
+        key
+      }
+      supplier
+      enabled
+      createdAt
+      updatedAt
+      brand {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      catalog {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const onUpdateProduct = /* GraphQL */ `
+  subscription OnUpdateProduct {
+    onUpdateProduct {
+      id
+      description
+      brandId
+      catalogId
+      price
+      stock
+      weight
+      imageUrl
+      file {
+        bucket
+        region
+        key
+      }
+      supplier
+      enabled
+      createdAt
+      updatedAt
+      brand {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      catalog {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const onDeleteProduct = /* GraphQL */ `
+  subscription OnDeleteProduct {
+    onDeleteProduct {
+      id
+      description
+      brandId
+      catalogId
+      price
+      stock
+      weight
+      imageUrl
+      file {
+        bucket
+        region
+        key
+      }
+      supplier
+      enabled
+      createdAt
+      updatedAt
+      brand {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      catalog {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const onCreateBrand = /* GraphQL */ `
+  subscription OnCreateBrand {
+    onCreateBrand {
+      id
+      name
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateBrand = /* GraphQL */ `
+  subscription OnUpdateBrand {
+    onUpdateBrand {
+      id
+      name
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteBrand = /* GraphQL */ `
+  subscription OnDeleteBrand {
+    onDeleteBrand {
+      id
+      name
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateCatalog = /* GraphQL */ `
+  subscription OnCreateCatalog {
+    onCreateCatalog {
+      id
+      name
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateCatalog = /* GraphQL */ `
+  subscription OnUpdateCatalog {
+    onUpdateCatalog {
+      id
+      name
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteCatalog = /* GraphQL */ `
+  subscription OnDeleteCatalog {
+    onDeleteCatalog {
+      id
+      name
       createdAt
       updatedAt
     }

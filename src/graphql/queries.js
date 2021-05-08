@@ -324,137 +324,6 @@ export const listCustomers = /* GraphQL */ `
     }
   }
 `;
-export const getProduct = /* GraphQL */ `
-  query GetProduct($id: ID!) {
-    getProduct(id: $id) {
-      id
-      description
-      brandId
-      catalogId
-      brand {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      catalog {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      price
-      stock
-      weight
-      imageUrl
-      file {
-        bucket
-        region
-        key
-      }
-      supplier
-      enabled
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listProducts = /* GraphQL */ `
-  query ListProducts(
-    $filter: ModelProductFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listProducts(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        description
-        brandId
-        catalogId
-        brand {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        catalog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        price
-        stock
-        weight
-        imageUrl
-        file {
-          bucket
-          region
-          key
-        }
-        supplier
-        enabled
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getBrand = /* GraphQL */ `
-  query GetBrand($id: ID!) {
-    getBrand(id: $id) {
-      id
-      name
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listBrands = /* GraphQL */ `
-  query ListBrands(
-    $filter: ModelBrandFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listBrands(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getCatalog = /* GraphQL */ `
-  query GetCatalog($id: ID!) {
-    getCatalog(id: $id) {
-      id
-      name
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listCatalogs = /* GraphQL */ `
-  query ListCatalogs(
-    $filter: ModelCatalogFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listCatalogs(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
 export const getOrder = /* GraphQL */ `
   query GetOrder($id: ID!) {
     getOrder(id: $id) {
@@ -549,23 +418,15 @@ export const getCart = /* GraphQL */ `
         updatedAt
       }
       productId
+      quantity
+      totalPrice
+      createdAt
+      updatedAt
       product {
         id
         description
         brandId
         catalogId
-        brand {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        catalog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
         price
         stock
         weight
@@ -579,11 +440,19 @@ export const getCart = /* GraphQL */ `
         enabled
         createdAt
         updatedAt
+        brand {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        catalog {
+          id
+          name
+          createdAt
+          updatedAt
+        }
       }
-      quantity
-      totalPrice
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -605,6 +474,10 @@ export const listCarts = /* GraphQL */ `
           updatedAt
         }
         productId
+        quantity
+        totalPrice
+        createdAt
+        updatedAt
         product {
           id
           description
@@ -619,10 +492,6 @@ export const listCarts = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        quantity
-        totalPrice
-        createdAt
-        updatedAt
       }
       nextToken
     }
@@ -885,106 +754,6 @@ export const getCustomerByEmail = /* GraphQL */ `
     }
   }
 `;
-export const getProductByBrandId = /* GraphQL */ `
-  query GetProductByBrandId(
-    $brandId: ID
-    $sortDirection: ModelSortDirection
-    $filter: ModelProductFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    getProductByBrandId(
-      brandId: $brandId
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        description
-        brandId
-        catalogId
-        brand {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        catalog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        price
-        stock
-        weight
-        imageUrl
-        file {
-          bucket
-          region
-          key
-        }
-        supplier
-        enabled
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getProductByCatalog = /* GraphQL */ `
-  query GetProductByCatalog(
-    $catalogId: ID
-    $sortDirection: ModelSortDirection
-    $filter: ModelProductFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    getProductByCatalog(
-      catalogId: $catalogId
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        description
-        brandId
-        catalogId
-        brand {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        catalog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        price
-        stock
-        weight
-        imageUrl
-        file {
-          bucket
-          region
-          key
-        }
-        supplier
-        enabled
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
 export const getOrderBySession = /* GraphQL */ `
   query GetOrderBySession(
     $sessionId: ID
@@ -1058,6 +827,10 @@ export const getOrderProductByProduct = /* GraphQL */ `
           updatedAt
         }
         productId
+        quantity
+        totalPrice
+        createdAt
+        updatedAt
         product {
           id
           description
@@ -1072,10 +845,6 @@ export const getOrderProductByProduct = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        quantity
-        totalPrice
-        createdAt
-        updatedAt
       }
       nextToken
     }
@@ -1107,6 +876,10 @@ export const getProductsBySession = /* GraphQL */ `
           updatedAt
         }
         productId
+        quantity
+        totalPrice
+        createdAt
+        updatedAt
         product {
           id
           description
@@ -1121,10 +894,6 @@ export const getProductsBySession = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        quantity
-        totalPrice
-        createdAt
-        updatedAt
       }
       nextToken
     }
@@ -1212,6 +981,237 @@ export const getEventByOrderId = /* GraphQL */ `
         updatedAt
       }
       nextToken
+    }
+  }
+`;
+export const listProducts = /* GraphQL */ `
+  query ListProducts(
+    $filter: ModelProductFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listProducts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        description
+        brandId
+        catalogId
+        price
+        stock
+        weight
+        imageUrl
+        file {
+          bucket
+          region
+          key
+        }
+        supplier
+        enabled
+        createdAt
+        updatedAt
+        brand {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        catalog {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+      }
+      nextToken
+    }
+  }
+`;
+export const getProduct = /* GraphQL */ `
+  query GetProduct($id: ID!) {
+    getProduct(id: $id) {
+      id
+      description
+      brandId
+      catalogId
+      price
+      stock
+      weight
+      imageUrl
+      file {
+        bucket
+        region
+        key
+      }
+      supplier
+      enabled
+      createdAt
+      updatedAt
+      brand {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      catalog {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const getProductByBrandId = /* GraphQL */ `
+  query GetProductByBrandId(
+    $brandId: ID
+    $sortDirection: ModelSortDirection
+    $filter: ModelProductFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    getProductByBrandId(
+      brandId: $brandId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        description
+        brandId
+        catalogId
+        price
+        stock
+        weight
+        imageUrl
+        file {
+          bucket
+          region
+          key
+        }
+        supplier
+        enabled
+        createdAt
+        updatedAt
+        brand {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        catalog {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+      }
+      nextToken
+    }
+  }
+`;
+export const getProductByCatalog = /* GraphQL */ `
+  query GetProductByCatalog(
+    $catalogId: ID
+    $sortDirection: ModelSortDirection
+    $filter: ModelProductFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    getProductByCatalog(
+      catalogId: $catalogId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        description
+        brandId
+        catalogId
+        price
+        stock
+        weight
+        imageUrl
+        file {
+          bucket
+          region
+          key
+        }
+        supplier
+        enabled
+        createdAt
+        updatedAt
+        brand {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        catalog {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+      }
+      nextToken
+    }
+  }
+`;
+export const listBrands = /* GraphQL */ `
+  query ListBrands(
+    $filter: ModelBrandFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listBrands(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getBrand = /* GraphQL */ `
+  query GetBrand($id: ID!) {
+    getBrand(id: $id) {
+      id
+      name
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listCatalogs = /* GraphQL */ `
+  query ListCatalogs(
+    $filter: ModelCatalogFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCatalogs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getCatalog = /* GraphQL */ `
+  query GetCatalog($id: ID!) {
+    getCatalog(id: $id) {
+      id
+      name
+      createdAt
+      updatedAt
     }
   }
 `;

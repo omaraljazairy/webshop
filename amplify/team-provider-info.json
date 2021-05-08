@@ -1,50 +1,26 @@
 {
-    "dev": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-webshop-dev-144027-authRole",
-            "UnauthRoleArn": "arn:aws:iam::302305848501:role/amplify-webshop-dev-144027-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::302305848501:role/amplify-webshop-dev-144027-authRole",
-            "Region": "eu-central-1",
-            "DeploymentBucketName": "amplify-webshop-dev-144027-deployment",
-            "UnauthRoleName": "amplify-webshop-dev-144027-unauthRole",
-            "StackName": "amplify-webshop-dev-144027",
-            "StackId": "arn:aws:cloudformation:eu-central-1:302305848501:stack/amplify-webshop-dev-144027/a3a08f50-1b7e-11eb-ae3c-0a467f2d62ae",
-            "AmplifyAppId": "d3kfq8zalc1v7h"
-        },
-        "categories": {
-            "auth": {
-                "webshop6b9226386b922638": {}
-            },
-            "hosting": {
-                "amplifyhosting": {
-                    "appId": "d3kfq8zalc1v7h",
-                    "type": "manual"
-                }
-            }
-        }
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-webshop-dev-144027-authRole",
+      "UnauthRoleArn": "arn:aws:iam::302305848501:role/amplify-webshop-dev-144027-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::302305848501:role/amplify-webshop-dev-144027-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-webshop-dev-144027-deployment",
+      "UnauthRoleName": "amplify-webshop-dev-144027-unauthRole",
+      "StackName": "amplify-webshop-dev-144027",
+      "StackId": "arn:aws:cloudformation:eu-central-1:302305848501:stack/amplify-webshop-dev-144027/a3a08f50-1b7e-11eb-ae3c-0a467f2d62ae",
+      "AmplifyAppId": "d3kfq8zalc1v7h"
     },
-    "prod": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-webshop-prod-232733-authRole",
-            "UnauthRoleArn": "arn:aws:iam::302305848501:role/amplify-webshop-prod-232733-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::302305848501:role/amplify-webshop-prod-232733-authRole",
-            "Region": "eu-central-1",
-            "DeploymentBucketName": "amplify-webshop-prod-232733-deployment",
-            "UnauthRoleName": "amplify-webshop-prod-232733-unauthRole",
-            "StackName": "amplify-webshop-prod-232733",
-            "StackId": "arn:aws:cloudformation:eu-central-1:302305848501:stack/amplify-webshop-prod-232733/e3d9f5f0-a08c-11eb-a9bf-028c5bff5b40",
-            "AmplifyAppId": "d3kfq8zalc1v7h"
-        },
-        "categories": {
-            "auth": {
-                "webshop6b9226386b922638": {}
-            },
-            "hosting": {
-                "amplifyhosting": {
-                    "appId": "d3kfq8zalc1v7h",
-                    "type": "manual"
-                }
-            }
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d3kfq8zalc1v7h",
+          "type": "manual"
         }
+      },
+      "auth": {
+        "webshop88fe958a88fe958a": {}
+      }
     }
+  }
 }

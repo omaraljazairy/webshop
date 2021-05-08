@@ -8,6 +8,12 @@
     },
     "greeting": {
         "welcome_to_react": "Welcome"
+    },
+    "product_specifications" : {
+        "stock": "Stock",
+        "weight": "Weight",
+        "quantity": "Quantity",
+        "price": "Price",
+        "item": "Item"
     }
-
 }

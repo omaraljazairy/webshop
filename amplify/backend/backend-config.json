@@ -1,7 +1,23 @@
 {
   "function": {},
   "auth": {
-    "webshop6b9226386b922638": {
+    "userPoolGroups": {
+      "service": "Cognito-UserPool-Groups",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "webshop88fe958a88fe958a",
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID",
+            "IdentityPoolId"
+          ]
+        }
+      ]
+    },
+    "webshop88fe958a88fe958a": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -17,7 +33,7 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authwebshop6b9226386b922638"
+              "userPoolId": "authwebshop88fe958a88fe958a"
             }
           },
           "additionalAuthenticationProviders": [
@@ -25,8 +41,11 @@
               "authenticationType": "API_KEY",
               "apiKeyConfig": {
                 "apiKeyExpirationDays": 7,
-                "description": "webshopAPIKey"
+                "description": "apikey"
               }
+            },
+            {
+              "authenticationType": "AWS_IAM"
             }
           ]
         }

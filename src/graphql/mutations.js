@@ -580,18 +580,6 @@ export const createProduct = /* GraphQL */ `
       description
       brandId
       catalogId
-      brand {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      catalog {
-        id
-        name
-        createdAt
-        updatedAt
-      }
       price
       stock
       weight
@@ -605,6 +593,18 @@ export const createProduct = /* GraphQL */ `
       enabled
       createdAt
       updatedAt
+      brand {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      catalog {
+        id
+        name
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -618,18 +618,6 @@ export const updateProduct = /* GraphQL */ `
       description
       brandId
       catalogId
-      brand {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      catalog {
-        id
-        name
-        createdAt
-        updatedAt
-      }
       price
       stock
       weight
@@ -643,6 +631,18 @@ export const updateProduct = /* GraphQL */ `
       enabled
       createdAt
       updatedAt
+      brand {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      catalog {
+        id
+        name
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -656,18 +656,6 @@ export const deleteProduct = /* GraphQL */ `
       description
       brandId
       catalogId
-      brand {
-        id
-        name
-        createdAt
-        updatedAt
-      }
-      catalog {
-        id
-        name
-        createdAt
-        updatedAt
-      }
       price
       stock
       weight
@@ -681,6 +669,18 @@ export const deleteProduct = /* GraphQL */ `
       enabled
       createdAt
       updatedAt
+      brand {
+        id
+        name
+        createdAt
+        updatedAt
+      }
+      catalog {
+        id
+        name
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -913,23 +913,15 @@ export const createCart = /* GraphQL */ `
         updatedAt
       }
       productId
+      quantity
+      totalPrice
+      createdAt
+      updatedAt
       product {
         id
         description
         brandId
         catalogId
-        brand {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        catalog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
         price
         stock
         weight
@@ -943,11 +935,19 @@ export const createCart = /* GraphQL */ `
         enabled
         createdAt
         updatedAt
+        brand {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        catalog {
+          id
+          name
+          createdAt
+          updatedAt
+        }
       }
-      quantity
-      totalPrice
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -967,23 +967,15 @@ export const updateCart = /* GraphQL */ `
         updatedAt
       }
       productId
+      quantity
+      totalPrice
+      createdAt
+      updatedAt
       product {
         id
         description
         brandId
         catalogId
-        brand {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        catalog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
         price
         stock
         weight
@@ -997,11 +989,19 @@ export const updateCart = /* GraphQL */ `
         enabled
         createdAt
         updatedAt
+        brand {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        catalog {
+          id
+          name
+          createdAt
+          updatedAt
+        }
       }
-      quantity
-      totalPrice
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -1021,23 +1021,15 @@ export const deleteCart = /* GraphQL */ `
         updatedAt
       }
       productId
+      quantity
+      totalPrice
+      createdAt
+      updatedAt
       product {
         id
         description
         brandId
         catalogId
-        brand {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        catalog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
         price
         stock
         weight
@@ -1051,11 +1043,19 @@ export const deleteCart = /* GraphQL */ `
         enabled
         createdAt
         updatedAt
+        brand {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        catalog {
+          id
+          name
+          createdAt
+          updatedAt
+        }
       }
-      quantity
-      totalPrice
-      createdAt
-      updatedAt
     }
   }
 `;

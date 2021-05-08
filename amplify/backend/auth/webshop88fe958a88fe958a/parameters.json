@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "webshop6b922638_identitypool_6b922638",
-    "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "websho6b922638",
-    "userPoolName": "webshop6b922638_userpool_6b922638",
+    "identityPoolName": "webshop88fe958a_identitypool_88fe958a",
+    "allowUnauthenticatedIdentities": true,
+    "resourceNameTruncated": "websho88fe958a",
+    "userPoolName": "webshop88fe958a_userpool_88fe958a",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -20,32 +20,18 @@
     "requiredAttributes": [
         "email"
     ],
-    "userpoolClientGenerateSecret": true,
+    "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
-        "address",
-        "birthdate",
-        "family_name",
-        "gender",
-        "locale",
-        "nickname",
-        "phone_number",
         "email"
     ],
     "userpoolClientReadAttributes": [
-        "address",
-        "birthdate",
-        "email",
-        "family_name",
-        "gender",
-        "locale",
-        "nickname",
-        "phone_number"
+        "email"
     ],
-    "userpoolClientLambdaRole": "websho6b922638_userpoolclient_lambda_role",
-    "userpoolClientSetAttributes": true,
-    "sharedId": "6b922638",
-    "resourceName": "webshop6b9226386b922638",
+    "userpoolClientLambdaRole": "websho88fe958a_userpoolclient_lambda_role",
+    "userpoolClientSetAttributes": false,
+    "sharedId": "88fe958a",
+    "resourceName": "webshop88fe958a88fe958a",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -60,16 +46,18 @@
         ]
     },
     "useDefault": "manual",
-    "userPoolGroups": false,
+    "thirdPartyAuth": false,
+    "userPoolGroups": true,
     "adminQueries": false,
     "triggers": "{}",
     "hostedUI": false,
-    "userPoolGroupList": [],
+    "userPoolGroupList": [
+        "Admin"
+    ],
     "serviceName": "Cognito",
     "parentStack": {
         "Ref": "AWS::StackId"
     },
     "permissions": [],
-    "dependsOn": [],
-    "thirdPartyAuth": false
+    "dependsOn": []
 }

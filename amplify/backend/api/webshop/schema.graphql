@@ -122,9 +122,11 @@ type Customer @model
 }
 
 type Product @model
-# @auth(rules: [
-#   { allow: public, operations: [read] }
-# ])
+@auth(rules: [
+  { allow: groups, groups: ["Admin"] },
+  { allow: private, operations: [read]},
+  { allow: public, operations: [read], provider: iam }
+])
 @key(name: "brandIdIndex", fields: ["brandId"], queryField: "getProductByBrandId")
 @key(name: "catalogIdIndex", fields: ["catalogId"], queryField: "getProductByCatalog")
 {
@@ -146,7 +148,11 @@ type Product @model
 }
 
 type Brand @model
-# @auth(rules: [{allow: public, operations: [read]}])
+@auth(rules: [
+  { allow: groups, groups: ["Admin"] },
+  { allow: private, operations: [read]},
+  { allow: public, operations: [read], provider: iam }
+])
 {
   id: ID!
   name: String!
@@ -154,7 +160,12 @@ type Brand @model
 }
 
 type Catalog @model 
-# @auth(rules: [{allow: public, operations: [read]}])
+@auth(rules: [
+  { allow: groups, groups: ["Admin"] },
+  { allow: private, operations: [read]},
+  { allow: public, operations: [read], provider: iam }
+])
+# @key(name: "catalogIdIndex", fields: ["catalogId"], queryField: "getProductByCatalog")
 {
   id: ID!
   name: String!

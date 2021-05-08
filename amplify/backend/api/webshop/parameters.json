@@ -1,11 +1,11 @@
 {
-    "AppSyncApiName": "webshop",
-    "DynamoDBBillingMode": "PAY_PER_REQUEST",
-    "DynamoDBEnableServerSideEncryption": false,
-    "AuthCognitoUserPoolId": {
-        "Fn::GetAtt": [
-            "authwebshop6b9226386b922638",
-            "Outputs.UserPoolId"
-        ]
-    }
+  "AppSyncApiName": "webshop",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authwebshop88fe958a88fe958a",
+      "Outputs.UserPoolId"
+    ]
+  }
 }
