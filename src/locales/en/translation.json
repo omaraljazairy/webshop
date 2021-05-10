@@ -10,10 +10,11 @@
         "welcome_to_react": "Welcome"
     },
     "product_specifications" : {
-        "stock": "Stock",
-        "weight": "Weight",
-        "quantity": "Quantity",
+        "add_to_shoppingcart": "Add to cart",
+        "item": "Item",
         "price": "Price",
-        "item": "Item"
+        "quantity": "Quantity",
+        "stock": "Stock",
+        "weight": "Weight"
     }
 }

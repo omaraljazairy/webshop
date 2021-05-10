@@ -8,13 +8,10 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import ShareIcon from '@material-ui/icons/Share';
-import Favorite from '@material-ui/icons/Favorite';
-import ShoppingCartSharpIcon from '@material-ui/icons/ShoppingCartSharp';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,12 +63,14 @@ export default function ProductCardV2(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <IconButton aria-label="shoppingcart">
+        {/* <IconButton aria-label="shoppingcart">
           <ShoppingCartSharpIcon />
-        </IconButton>
+        </IconButton> */}
+        <Button variant="contained" color="primary" size="small">{i18n.t('product_specifications.add_to_shoppingcart')}
+        </Button>
         <TextField
           id="standard-number"
-          label={i18n.t('product_specifications.quantity')}
+        //   label={i18n.t('product_specifications.quantity')}
           type="number"
           defaultValue={1}
           size="small"
@@ -80,12 +79,12 @@ export default function ProductCardV2(props) {
           }}
           className={classes.textField}
         />
-        <IconButton aria-label="share">
+        {/* <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
         <IconButton aria-label="share">
           <Favorite />
-        </IconButton>
+        </IconButton> */}
       </CardActions>
     </Card>
   );

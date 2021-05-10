@@ -10,11 +10,16 @@
         "welcome_to_react": "bienvenido"
     },
     "product_specifications" : {
-        "stock": "Existencias",
-        "weight": "Peso",
-        "quantity": "Cantidad",
+        "add_to_shoppingcart": "Añadir al carrito",
+        "item": "Articulo",
         "price": "Precio",
-        "item": "Articulo"
+        "quantity": "Cantidad",
+        "stock": "Existencias",
+        "weight": "Peso"
+        
+
+
+
     }
     
 }
