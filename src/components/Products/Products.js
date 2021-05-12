@@ -103,7 +103,7 @@ class Products extends Component {
 
 
 Products.propTypes = {
-  catalogId: PropTypes.string,
+  catalogId: PropTypes.string.isRequired,
 }
 
 
