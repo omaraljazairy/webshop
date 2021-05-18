@@ -93,7 +93,13 @@ type WeightZoneTariff
 }
 
 # add ipaddress
-type Sessions @model 
+type Sessions
+  @auth(rules: [
+    { allow: groups, groups: ["Admin"] },
+    { allow: private, operations: [read, create, delete, update]},
+    { allow: public, operations: [read, create, update], provider: iam }
+  ])
+  @model 
 # @auth(rules: [{allow: public, operations: [read]}])
 {
   id: ID!
@@ -204,7 +210,13 @@ type Order @model
 #   address: String
 # }
 
-type Cart @model
+type Cart
+  @auth(rules: [
+    { allow: groups, groups: ["Admin"] },
+    { allow: private, operations: [read, create, delete, update]},
+    { allow: public, operations: [read, create, delete, update], provider: iam }
+  ])
+ @model
 # @auth(rules: [{allow: public, operations: [read]}])
 @key(name: "productIdIndex", fields: ["productId"], queryField: "getOrderProductByProduct")
 @key(name: "bySessionId", fields: ["sessionId"], queryField: "getProductsBySession")

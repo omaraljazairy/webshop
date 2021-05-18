@@ -13,7 +13,8 @@ class Products extends Component {
     pageNumber: 1,
     products: [],
     start: 0,
-    end: TOTAL_PRODUCT_PER_PAGE
+    end: TOTAL_PRODUCT_PER_PAGE,
+    shoppingcart: []
   }
 
   componentDidMount() {

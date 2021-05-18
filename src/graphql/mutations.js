@@ -414,34 +414,6 @@ export const deleteWeightZoneTariff = /* GraphQL */ `
     }
   }
 `;
-export const createSessions = /* GraphQL */ `
-  mutation CreateSessions(
-    $input: CreateSessionsInput!
-    $condition: ModelSessionsConditionInput
-  ) {
-    createSessions(input: $input, condition: $condition) {
-      id
-      ipaddress
-      userAgent
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateSessions = /* GraphQL */ `
-  mutation UpdateSessions(
-    $input: UpdateSessionsInput!
-    $condition: ModelSessionsConditionInput
-  ) {
-    updateSessions(input: $input, condition: $condition) {
-      id
-      ipaddress
-      userAgent
-      createdAt
-      updatedAt
-    }
-  }
-`;
 export const deleteSessions = /* GraphQL */ `
   mutation DeleteSessions(
     $input: DeleteSessionsInput!
@@ -770,13 +742,6 @@ export const createOrder = /* GraphQL */ `
     createOrder(input: $input, condition: $condition) {
       id
       sessionId
-      session {
-        id
-        ipaddress
-        userAgent
-        createdAt
-        updatedAt
-      }
       customer {
         id
         username
@@ -804,6 +769,13 @@ export const createOrder = /* GraphQL */ `
       statusDescription
       createdAt
       updatedAt
+      session {
+        id
+        ipaddress
+        userAgent
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -815,13 +787,6 @@ export const updateOrder = /* GraphQL */ `
     updateOrder(input: $input, condition: $condition) {
       id
       sessionId
-      session {
-        id
-        ipaddress
-        userAgent
-        createdAt
-        updatedAt
-      }
       customer {
         id
         username
@@ -849,6 +814,13 @@ export const updateOrder = /* GraphQL */ `
       statusDescription
       createdAt
       updatedAt
+      session {
+        id
+        ipaddress
+        userAgent
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -860,13 +832,6 @@ export const deleteOrder = /* GraphQL */ `
     deleteOrder(input: $input, condition: $condition) {
       id
       sessionId
-      session {
-        id
-        ipaddress
-        userAgent
-        createdAt
-        updatedAt
-      }
       customer {
         id
         username
@@ -894,167 +859,12 @@ export const deleteOrder = /* GraphQL */ `
       statusDescription
       createdAt
       updatedAt
-    }
-  }
-`;
-export const createCart = /* GraphQL */ `
-  mutation CreateCart(
-    $input: CreateCartInput!
-    $condition: ModelCartConditionInput
-  ) {
-    createCart(input: $input, condition: $condition) {
-      id
-      sessionId
       session {
         id
         ipaddress
         userAgent
         createdAt
         updatedAt
-      }
-      productId
-      quantity
-      totalPrice
-      createdAt
-      updatedAt
-      product {
-        id
-        description
-        brandId
-        catalogId
-        price
-        stock
-        weight
-        imageUrl
-        file {
-          bucket
-          region
-          key
-        }
-        supplier
-        enabled
-        createdAt
-        updatedAt
-        brand {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        catalog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-      }
-    }
-  }
-`;
-export const updateCart = /* GraphQL */ `
-  mutation UpdateCart(
-    $input: UpdateCartInput!
-    $condition: ModelCartConditionInput
-  ) {
-    updateCart(input: $input, condition: $condition) {
-      id
-      sessionId
-      session {
-        id
-        ipaddress
-        userAgent
-        createdAt
-        updatedAt
-      }
-      productId
-      quantity
-      totalPrice
-      createdAt
-      updatedAt
-      product {
-        id
-        description
-        brandId
-        catalogId
-        price
-        stock
-        weight
-        imageUrl
-        file {
-          bucket
-          region
-          key
-        }
-        supplier
-        enabled
-        createdAt
-        updatedAt
-        brand {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        catalog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-      }
-    }
-  }
-`;
-export const deleteCart = /* GraphQL */ `
-  mutation DeleteCart(
-    $input: DeleteCartInput!
-    $condition: ModelCartConditionInput
-  ) {
-    deleteCart(input: $input, condition: $condition) {
-      id
-      sessionId
-      session {
-        id
-        ipaddress
-        userAgent
-        createdAt
-        updatedAt
-      }
-      productId
-      quantity
-      totalPrice
-      createdAt
-      updatedAt
-      product {
-        id
-        description
-        brandId
-        catalogId
-        price
-        stock
-        weight
-        imageUrl
-        file {
-          bucket
-          region
-          key
-        }
-        supplier
-        enabled
-        createdAt
-        updatedAt
-        brand {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        catalog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
       }
     }
   }
@@ -1203,6 +1013,196 @@ export const deleteEvents = /* GraphQL */ `
       description
       createdAt
       updatedAt
+    }
+  }
+`;
+export const createSessions = /* GraphQL */ `
+  mutation CreateSessions(
+    $input: CreateSessionsInput!
+    $condition: ModelSessionsConditionInput
+  ) {
+    createSessions(input: $input, condition: $condition) {
+      id
+      ipaddress
+      userAgent
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateSessions = /* GraphQL */ `
+  mutation UpdateSessions(
+    $input: UpdateSessionsInput!
+    $condition: ModelSessionsConditionInput
+  ) {
+    updateSessions(input: $input, condition: $condition) {
+      id
+      ipaddress
+      userAgent
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createCart = /* GraphQL */ `
+  mutation CreateCart(
+    $input: CreateCartInput!
+    $condition: ModelCartConditionInput
+  ) {
+    createCart(input: $input, condition: $condition) {
+      id
+      sessionId
+      productId
+      quantity
+      totalPrice
+      createdAt
+      updatedAt
+      session {
+        id
+        ipaddress
+        userAgent
+        createdAt
+        updatedAt
+      }
+      product {
+        id
+        description
+        brandId
+        catalogId
+        price
+        stock
+        weight
+        imageUrl
+        file {
+          bucket
+          region
+          key
+        }
+        supplier
+        enabled
+        createdAt
+        updatedAt
+        brand {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        catalog {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`;
+export const updateCart = /* GraphQL */ `
+  mutation UpdateCart(
+    $input: UpdateCartInput!
+    $condition: ModelCartConditionInput
+  ) {
+    updateCart(input: $input, condition: $condition) {
+      id
+      sessionId
+      productId
+      quantity
+      totalPrice
+      createdAt
+      updatedAt
+      session {
+        id
+        ipaddress
+        userAgent
+        createdAt
+        updatedAt
+      }
+      product {
+        id
+        description
+        brandId
+        catalogId
+        price
+        stock
+        weight
+        imageUrl
+        file {
+          bucket
+          region
+          key
+        }
+        supplier
+        enabled
+        createdAt
+        updatedAt
+        brand {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        catalog {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`;
+export const deleteCart = /* GraphQL */ `
+  mutation DeleteCart(
+    $input: DeleteCartInput!
+    $condition: ModelCartConditionInput
+  ) {
+    deleteCart(input: $input, condition: $condition) {
+      id
+      sessionId
+      productId
+      quantity
+      totalPrice
+      createdAt
+      updatedAt
+      session {
+        id
+        ipaddress
+        userAgent
+        createdAt
+        updatedAt
+      }
+      product {
+        id
+        description
+        brandId
+        catalogId
+        price
+        stock
+        weight
+        imageUrl
+        file {
+          bucket
+          region
+          key
+        }
+        supplier
+        enabled
+        createdAt
+        updatedAt
+        brand {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        catalog {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+      }
     }
   }
 `;

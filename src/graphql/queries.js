@@ -228,35 +228,6 @@ export const listWeightZoneTariffs = /* GraphQL */ `
     }
   }
 `;
-export const getSessions = /* GraphQL */ `
-  query GetSessions($id: ID!) {
-    getSessions(id: $id) {
-      id
-      ipaddress
-      userAgent
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listSessionss = /* GraphQL */ `
-  query ListSessionss(
-    $filter: ModelSessionsFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listSessionss(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        ipaddress
-        userAgent
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
 export const getCustomer = /* GraphQL */ `
   query GetCustomer($id: ID!) {
     getCustomer(id: $id) {
@@ -329,13 +300,6 @@ export const getOrder = /* GraphQL */ `
     getOrder(id: $id) {
       id
       sessionId
-      session {
-        id
-        ipaddress
-        userAgent
-        createdAt
-        updatedAt
-      }
       customer {
         id
         username
@@ -363,6 +327,13 @@ export const getOrder = /* GraphQL */ `
       statusDescription
       createdAt
       updatedAt
+      session {
+        id
+        ipaddress
+        userAgent
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -376,13 +347,6 @@ export const listOrders = /* GraphQL */ `
       items {
         id
         sessionId
-        session {
-          id
-          ipaddress
-          userAgent
-          createdAt
-          updatedAt
-        }
         customer {
           id
           username
@@ -400,95 +364,10 @@ export const listOrders = /* GraphQL */ `
         statusDescription
         createdAt
         updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getCart = /* GraphQL */ `
-  query GetCart($id: ID!) {
-    getCart(id: $id) {
-      id
-      sessionId
-      session {
-        id
-        ipaddress
-        userAgent
-        createdAt
-        updatedAt
-      }
-      productId
-      quantity
-      totalPrice
-      createdAt
-      updatedAt
-      product {
-        id
-        description
-        brandId
-        catalogId
-        price
-        stock
-        weight
-        imageUrl
-        file {
-          bucket
-          region
-          key
-        }
-        supplier
-        enabled
-        createdAt
-        updatedAt
-        brand {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        catalog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-      }
-    }
-  }
-`;
-export const listCarts = /* GraphQL */ `
-  query ListCarts(
-    $filter: ModelCartFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listCarts(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        sessionId
         session {
           id
           ipaddress
           userAgent
-          createdAt
-          updatedAt
-        }
-        productId
-        quantity
-        totalPrice
-        createdAt
-        updatedAt
-        product {
-          id
-          description
-          brandId
-          catalogId
-          price
-          stock
-          weight
-          imageUrl
-          supplier
-          enabled
           createdAt
           updatedAt
         }
@@ -772,13 +651,6 @@ export const getOrderBySession = /* GraphQL */ `
       items {
         id
         sessionId
-        session {
-          id
-          ipaddress
-          userAgent
-          createdAt
-          updatedAt
-        }
         customer {
           id
           username
@@ -796,101 +668,10 @@ export const getOrderBySession = /* GraphQL */ `
         statusDescription
         createdAt
         updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getOrderProductByProduct = /* GraphQL */ `
-  query GetOrderProductByProduct(
-    $productId: ID
-    $sortDirection: ModelSortDirection
-    $filter: ModelCartFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    getOrderProductByProduct(
-      productId: $productId
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        sessionId
         session {
           id
           ipaddress
           userAgent
-          createdAt
-          updatedAt
-        }
-        productId
-        quantity
-        totalPrice
-        createdAt
-        updatedAt
-        product {
-          id
-          description
-          brandId
-          catalogId
-          price
-          stock
-          weight
-          imageUrl
-          supplier
-          enabled
-          createdAt
-          updatedAt
-        }
-      }
-      nextToken
-    }
-  }
-`;
-export const getProductsBySession = /* GraphQL */ `
-  query GetProductsBySession(
-    $sessionId: ID
-    $sortDirection: ModelSortDirection
-    $filter: ModelCartFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    getProductsBySession(
-      sessionId: $sessionId
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        sessionId
-        session {
-          id
-          ipaddress
-          userAgent
-          createdAt
-          updatedAt
-        }
-        productId
-        quantity
-        totalPrice
-        createdAt
-        updatedAt
-        product {
-          id
-          description
-          brandId
-          catalogId
-          price
-          stock
-          weight
-          imageUrl
-          supplier
-          enabled
           createdAt
           updatedAt
         }
@@ -981,6 +762,35 @@ export const getEventByOrderId = /* GraphQL */ `
         updatedAt
       }
       nextToken
+    }
+  }
+`;
+export const listSessionss = /* GraphQL */ `
+  query ListSessionss(
+    $filter: ModelSessionsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listSessionss(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        ipaddress
+        userAgent
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getSessions = /* GraphQL */ `
+  query GetSessions($id: ID!) {
+    getSessions(id: $id) {
+      id
+      ipaddress
+      userAgent
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -1212,6 +1022,196 @@ export const getCatalog = /* GraphQL */ `
       name
       createdAt
       updatedAt
+    }
+  }
+`;
+export const getCart = /* GraphQL */ `
+  query GetCart($id: ID!) {
+    getCart(id: $id) {
+      id
+      sessionId
+      productId
+      quantity
+      totalPrice
+      createdAt
+      updatedAt
+      session {
+        id
+        ipaddress
+        userAgent
+        createdAt
+        updatedAt
+      }
+      product {
+        id
+        description
+        brandId
+        catalogId
+        price
+        stock
+        weight
+        imageUrl
+        file {
+          bucket
+          region
+          key
+        }
+        supplier
+        enabled
+        createdAt
+        updatedAt
+        brand {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        catalog {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`;
+export const listCarts = /* GraphQL */ `
+  query ListCarts(
+    $filter: ModelCartFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCarts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        sessionId
+        productId
+        quantity
+        totalPrice
+        createdAt
+        updatedAt
+        session {
+          id
+          ipaddress
+          userAgent
+          createdAt
+          updatedAt
+        }
+        product {
+          id
+          description
+          brandId
+          catalogId
+          price
+          stock
+          weight
+          imageUrl
+          supplier
+          enabled
+          createdAt
+          updatedAt
+        }
+      }
+      nextToken
+    }
+  }
+`;
+export const getOrderProductByProduct = /* GraphQL */ `
+  query GetOrderProductByProduct(
+    $productId: ID
+    $sortDirection: ModelSortDirection
+    $filter: ModelCartFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    getOrderProductByProduct(
+      productId: $productId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        sessionId
+        productId
+        quantity
+        totalPrice
+        createdAt
+        updatedAt
+        session {
+          id
+          ipaddress
+          userAgent
+          createdAt
+          updatedAt
+        }
+        product {
+          id
+          description
+          brandId
+          catalogId
+          price
+          stock
+          weight
+          imageUrl
+          supplier
+          enabled
+          createdAt
+          updatedAt
+        }
+      }
+      nextToken
+    }
+  }
+`;
+export const getProductsBySession = /* GraphQL */ `
+  query GetProductsBySession(
+    $sessionId: ID
+    $sortDirection: ModelSortDirection
+    $filter: ModelCartFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    getProductsBySession(
+      sessionId: $sessionId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        sessionId
+        productId
+        quantity
+        totalPrice
+        createdAt
+        updatedAt
+        session {
+          id
+          ipaddress
+          userAgent
+          createdAt
+          updatedAt
+        }
+        product {
+          id
+          description
+          brandId
+          catalogId
+          price
+          stock
+          weight
+          imageUrl
+          supplier
+          enabled
+          createdAt
+          updatedAt
+        }
+      }
+      nextToken
     }
   }
 `;

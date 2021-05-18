@@ -20,10 +20,11 @@ import Backdrop from './components/Backdrops/Backdrop';
 import Container from '@material-ui/core/Container';
 // import { Authenticator, AmplifyTheme } from 'aws-amplify-react';
 import { Auth, Hub, API, graphqlOperation } from 'aws-amplify'
-import { getCustomer } from './graphql/queries';
-import { createCustomer } from './graphql/mutations';
+import { getCustomer, getSessions } from './graphql/queries';
+import { createCustomer, createSessions } from './graphql/mutations';
 import ReactNotification from 'react-notifications-component';
 import { withNamespaces } from 'react-i18next';
+import { storeSession, storeIp, storeUserAgent } from './services/localstorge';
 
 export const history = createBrowserHistory()
 export const UserContext =  React.createContext()
@@ -32,11 +33,12 @@ class App extends Component {
 
   state = {
     sideDrawerOpen: false,
-    user: null
+    user: null,
   };
 
   componentDidMount() {
     console.log("component did mount in App")
+    this.setUserSessionInfo()
     this.getUserData();
     Hub.listen('auth', this, 'onHubCapsule')
   }
@@ -56,6 +58,9 @@ class App extends Component {
     }
   }
 
+  // getUserIp = async () => {
+
+  // }
 
 
   onHubCapsule = capsule => {
@@ -77,6 +82,65 @@ class App extends Component {
         break;
       default:
         return;
+    }
+  }
+
+
+  /**
+   * save the session with the ipaddress and useragent of the user when they are created and 
+   * stored in the localStorage. 
+   */
+  setUserSessionInfo = async () => {
+    // call the localStorage functions to store the session, ipaddress and useragent.
+    const storedSession = storeSession();
+    const storedUserAgent = storeUserAgent();
+    const storedIp = await storeIp();
+    console.log("finished storage in localstorage");
+    
+    // get the sessionid stored in the localstorage 
+    
+    console.log("storedSession: ", storedSession);
+    console.log("storedIp: ", storedIp);
+    console.log("storedUserAgent: ", storedUserAgent);
+
+    // check if the session is already stored in the database.
+    const getSessionInput = {
+      id: storedSession
+    }
+    console.log("getSessionInput: ", getSessionInput);
+    
+    try {
+      const sessionData = await API.graphql(
+        {
+          query: getSessions,
+          variables: getSessionInput,
+          authMode: 'AWS_IAM'
+        }
+      );
+      console.log('sessionData: ', sessionData.data.getSessions)
+           // if the session doesn't exist, save it with the useragent and ipaddress
+        if (!sessionData.data.getSessions) {
+          const sessionsInput = {
+            id: storedSession,
+            ipaddress: storedIp,
+            userAgent: storedUserAgent
+          }
+
+          try {
+            const result  = await API.graphql(
+              {
+                query: createSessions,
+                variables: {input: sessionsInput},
+                authMode: 'AWS_IAM',
+              }
+            )
+            console.log("session created: ", result);
+          } catch (err) {
+            console.error('unable to save session data: ', err);
+          }
+        }
+    } catch (err) {
+      console.error("sessiondata error: ", err)
     }
   }
 

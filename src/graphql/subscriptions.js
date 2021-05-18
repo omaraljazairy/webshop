@@ -271,39 +271,6 @@ export const onDeleteWeightZoneTariff = /* GraphQL */ `
     }
   }
 `;
-export const onCreateSessions = /* GraphQL */ `
-  subscription OnCreateSessions {
-    onCreateSessions {
-      id
-      ipaddress
-      userAgent
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateSessions = /* GraphQL */ `
-  subscription OnUpdateSessions {
-    onUpdateSessions {
-      id
-      ipaddress
-      userAgent
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteSessions = /* GraphQL */ `
-  subscription OnDeleteSessions {
-    onDeleteSessions {
-      id
-      ipaddress
-      userAgent
-      createdAt
-      updatedAt
-    }
-  }
-`;
 export const onCreateCustomer = /* GraphQL */ `
   subscription OnCreateCustomer {
     onCreateCustomer {
@@ -414,13 +381,6 @@ export const onCreateOrder = /* GraphQL */ `
     onCreateOrder {
       id
       sessionId
-      session {
-        id
-        ipaddress
-        userAgent
-        createdAt
-        updatedAt
-      }
       customer {
         id
         username
@@ -448,6 +408,13 @@ export const onCreateOrder = /* GraphQL */ `
       statusDescription
       createdAt
       updatedAt
+      session {
+        id
+        ipaddress
+        userAgent
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -456,13 +423,6 @@ export const onUpdateOrder = /* GraphQL */ `
     onUpdateOrder {
       id
       sessionId
-      session {
-        id
-        ipaddress
-        userAgent
-        createdAt
-        updatedAt
-      }
       customer {
         id
         username
@@ -490,6 +450,13 @@ export const onUpdateOrder = /* GraphQL */ `
       statusDescription
       createdAt
       updatedAt
+      session {
+        id
+        ipaddress
+        userAgent
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -498,13 +465,6 @@ export const onDeleteOrder = /* GraphQL */ `
     onDeleteOrder {
       id
       sessionId
-      session {
-        id
-        ipaddress
-        userAgent
-        createdAt
-        updatedAt
-      }
       customer {
         id
         username
@@ -532,158 +492,12 @@ export const onDeleteOrder = /* GraphQL */ `
       statusDescription
       createdAt
       updatedAt
-    }
-  }
-`;
-export const onCreateCart = /* GraphQL */ `
-  subscription OnCreateCart {
-    onCreateCart {
-      id
-      sessionId
       session {
         id
         ipaddress
         userAgent
         createdAt
         updatedAt
-      }
-      productId
-      quantity
-      totalPrice
-      createdAt
-      updatedAt
-      product {
-        id
-        description
-        brandId
-        catalogId
-        price
-        stock
-        weight
-        imageUrl
-        file {
-          bucket
-          region
-          key
-        }
-        supplier
-        enabled
-        createdAt
-        updatedAt
-        brand {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        catalog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-      }
-    }
-  }
-`;
-export const onUpdateCart = /* GraphQL */ `
-  subscription OnUpdateCart {
-    onUpdateCart {
-      id
-      sessionId
-      session {
-        id
-        ipaddress
-        userAgent
-        createdAt
-        updatedAt
-      }
-      productId
-      quantity
-      totalPrice
-      createdAt
-      updatedAt
-      product {
-        id
-        description
-        brandId
-        catalogId
-        price
-        stock
-        weight
-        imageUrl
-        file {
-          bucket
-          region
-          key
-        }
-        supplier
-        enabled
-        createdAt
-        updatedAt
-        brand {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        catalog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-      }
-    }
-  }
-`;
-export const onDeleteCart = /* GraphQL */ `
-  subscription OnDeleteCart {
-    onDeleteCart {
-      id
-      sessionId
-      session {
-        id
-        ipaddress
-        userAgent
-        createdAt
-        updatedAt
-      }
-      productId
-      quantity
-      totalPrice
-      createdAt
-      updatedAt
-      product {
-        id
-        description
-        brandId
-        catalogId
-        price
-        stock
-        weight
-        imageUrl
-        file {
-          bucket
-          region
-          key
-        }
-        supplier
-        enabled
-        createdAt
-        updatedAt
-        brand {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        catalog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
       }
     }
   }
@@ -803,6 +617,39 @@ export const onDeleteEvents = /* GraphQL */ `
       type
       status
       description
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateSessions = /* GraphQL */ `
+  subscription OnCreateSessions {
+    onCreateSessions {
+      id
+      ipaddress
+      userAgent
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateSessions = /* GraphQL */ `
+  subscription OnUpdateSessions {
+    onUpdateSessions {
+      id
+      ipaddress
+      userAgent
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteSessions = /* GraphQL */ `
+  subscription OnDeleteSessions {
+    onDeleteSessions {
+      id
+      ipaddress
+      userAgent
       createdAt
       updatedAt
     }
@@ -970,6 +817,159 @@ export const onDeleteCatalog = /* GraphQL */ `
       name
       createdAt
       updatedAt
+    }
+  }
+`;
+export const onCreateCart = /* GraphQL */ `
+  subscription OnCreateCart {
+    onCreateCart {
+      id
+      sessionId
+      productId
+      quantity
+      totalPrice
+      createdAt
+      updatedAt
+      session {
+        id
+        ipaddress
+        userAgent
+        createdAt
+        updatedAt
+      }
+      product {
+        id
+        description
+        brandId
+        catalogId
+        price
+        stock
+        weight
+        imageUrl
+        file {
+          bucket
+          region
+          key
+        }
+        supplier
+        enabled
+        createdAt
+        updatedAt
+        brand {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        catalog {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`;
+export const onUpdateCart = /* GraphQL */ `
+  subscription OnUpdateCart {
+    onUpdateCart {
+      id
+      sessionId
+      productId
+      quantity
+      totalPrice
+      createdAt
+      updatedAt
+      session {
+        id
+        ipaddress
+        userAgent
+        createdAt
+        updatedAt
+      }
+      product {
+        id
+        description
+        brandId
+        catalogId
+        price
+        stock
+        weight
+        imageUrl
+        file {
+          bucket
+          region
+          key
+        }
+        supplier
+        enabled
+        createdAt
+        updatedAt
+        brand {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        catalog {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`;
+export const onDeleteCart = /* GraphQL */ `
+  subscription OnDeleteCart {
+    onDeleteCart {
+      id
+      sessionId
+      productId
+      quantity
+      totalPrice
+      createdAt
+      updatedAt
+      session {
+        id
+        ipaddress
+        userAgent
+        createdAt
+        updatedAt
+      }
+      product {
+        id
+        description
+        brandId
+        catalogId
+        price
+        stock
+        weight
+        imageUrl
+        file {
+          bucket
+          region
+          key
+        }
+        supplier
+        enabled
+        createdAt
+        updatedAt
+        brand {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        catalog {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+      }
     }
   }
 `;
