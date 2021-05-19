@@ -22,7 +22,8 @@ const Header = props => {
                 </div>
 
                 <div className="header__navigation-items">
-                    <NavLink exact strict to='/' activeClassName='active'>{i18n.t('category.hair')}</NavLink>
+                    <NavLink exact strict to='/' activeClassName='active'>{i18n.t('category.home')}</NavLink>
+                    <NavLink exact to='/hair' activeClassName='active'>{i18n.t('category.hair')}</NavLink>
                     <NavLink exact to='/hygiene' activeClassName='active'>{i18n.t('category.hygiene')}</NavLink>
                     <NavLink exact to='/makeup' activeClassName='active'>{i18n.t('category.makeup')}</NavLink>
                     <NavLink exact to='/perfume' activeClassName='active'>{i18n.t('category.perfumes')}</NavLink>

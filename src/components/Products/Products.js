@@ -19,6 +19,7 @@ class Products extends Component {
 
   componentDidMount() {
     this.handleFetchProductList();
+
   }
 
   handleFetchProductList = async () => {
@@ -64,9 +65,14 @@ class Products extends Component {
     this.handleFetchProductList()
   }
 
+  handleShoppingCart(products) {
+    console.log("products of shoppingcart received: ", products)
+  }
+
   render() {
     const {products, start, end}  = this.state
     const totalProducts = products.length
+    console.log("basePath received by page: ", this.props.basePath)
     // var startPage = 1
     // get the total products and use the Math.ceil to get the number of pages required
     var pages = Math.ceil(totalProducts / TOTAL_PRODUCT_PER_PAGE)
@@ -84,7 +90,10 @@ class Products extends Component {
                 price={product.price}
                 stock={product.stock}
                 weight={product.weight}
-                description={product.description} />
+                description={product.description} 
+                shoppingcartEvent={(products) => this.handleShoppingCart(products)}
+                basePath={this.props.basePath}
+                />
 
               </Col>
             ))}
@@ -105,6 +114,7 @@ class Products extends Component {
 
 Products.propTypes = {
   catalogId: PropTypes.string.isRequired,
+  basePath: PropTypes.string.isRequired
 }
 
 

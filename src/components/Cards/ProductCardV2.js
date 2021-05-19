@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../../assets/css/product.css';
 import i18n from '../../i18n';
 import PropTypes from 'prop-types';
@@ -36,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProductCardV2(props) {
   const classes = useStyles();
-
+  
 
   return (
     <Card className={classes.root}>
@@ -66,8 +67,14 @@ export default function ProductCardV2(props) {
         {/* <IconButton aria-label="shoppingcart">
           <ShoppingCartSharpIcon />
         </IconButton> */}
-        <Button variant="contained" color="primary" size="small">{i18n.t('product_specifications.add_to_shoppingcart')}
-        </Button>
+        <Link to={{
+            pathname: props.basePath,
+            state: {product: 'ProductDetails object'}
+            }}>
+            <Button variant="contained" color="primary" size="small" >{i18n.t('product_specifications.add_to_shoppingcart')}
+            </Button>
+        </Link>
+        
         <TextField
           id="standard-number"
         //   label={i18n.t('product_specifications.quantity')}
@@ -96,5 +103,6 @@ ProductCardV2.propTypes = {
     brand: PropTypes.string,
     description: PropTypes.string,
     id: PropTypes.string,
-    index: PropTypes.number
+    index: PropTypes.number,
+    basePath: PropTypes.string.isRequired
 }

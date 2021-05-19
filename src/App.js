@@ -7,6 +7,7 @@ import Body  from './components/Body/Body';
 import Footer from './components/Footers/Footer';
 import Account from './pages/Account';
 import { Cart } from './pages/Cart';
+import Home from './pages/Home';
 import Hair from './pages/Hair';
 import Admin from './pages/Admin';
 import Hygiene from './pages/Hygiene';
@@ -14,6 +15,7 @@ import DeletedAccount from './pages/DeletedAccount';
 import Perfume from './pages/Perfume';
 import Suncare from './pages/Suncare';
 import Makeup from './pages/Makeup';
+// import ProductDetails from './pages/'
 import { NoMatch } from './pages/NoMatch';
 import SideDrawer from './components/SideDrawers/SideDrawer';
 import Backdrop from './components/Backdrops/Backdrop';
@@ -206,7 +208,8 @@ class App extends Component {
             <Body>
               <ReactNotification />
               <Switch>
-                <Route exact path='/' component={Hair} />
+                <Route exact path='/' component={Home} />
+                <Route exact path='/hair' component={Hair} />
                 <Route exact path='/confirm' component={DeletedAccount} />
                 <Route path='/account' component={() => ( <Account user={user} /> )} />
                 <Route path='/admin' component={() => ( <Admin user={user} /> )} />
