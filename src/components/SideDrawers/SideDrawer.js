@@ -31,7 +31,11 @@ const SideDrawer = props => {
             <nav>
                 <div className="side-drawer-items">
                     {/* <Image src={homeIcon} style={styles.icons} alt="home"/>  */}
-                    <NavLink exact strict to='/' activeClassName='active' onClick={props.drawerHandler}>{i18n.t('category.hair')}</NavLink>
+                    <NavLink exact strict to='/' activeClassName='active' onClick={props.drawerHandler}>{i18n.t('category.home')}</NavLink>
+                </div>
+                <div className="side-drawer-items">
+                    {/* <Image src={homeIcon} style={styles.icons} alt="home"/>  */}
+                    <NavLink exact strict to='/hair' activeClassName='active' onClick={props.drawerHandler}>{i18n.t('category.hair')}</NavLink>
                 </div>
                 <div className="side-drawer-items">
                     {/* <Image src={aboutIcon} style={styles.icons} alt="home"/>  */}

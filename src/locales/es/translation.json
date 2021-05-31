@@ -7,8 +7,10 @@
         "perfumes": "Perfumes",
         "suncare": "Cuidado Solar"
     },
-    "greeting": {
-        "welcome_to_react": "bienvenido"
+    "messages": {
+        "days": "dias",
+        "delivered_within": "Entregado en ",
+        "welcome": "bienvenido"
     },
     "product_specifications" : {
         "add_to_shoppingcart": "Añadir al carrito",
@@ -16,10 +18,8 @@
         "price": "Precio",
         "quantity": "Cantidad",
         "stock": "Existencias",
+        "view_item": "Ver Item",
         "weight": "Peso"
-        
-
-
 
     }
     

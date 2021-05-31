@@ -8,11 +8,11 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Stars from '../Ratings/Stars';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,77 +32,57 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
     width: '25%',
+  },
+  button: {
+      width: '100%'
   }
 }));
 
 export default function ProductCardV2(props) {
   const classes = useStyles();
+  const stars = Math.floor(Math.random() * 5) + 1
+  const product = props.product
   
 
   return (
     <Card className={classes.root}>
       <CardHeader
-        title={props.brand}
+        title={product.brand.name}
       />
       <CardMedia
         className={classes.media}
-        image={props.img}
+        image={product.image}
       />
       <CardContent>
         <Typography component="p">
-        {props.description}
+        {product.description}
         </Typography>
         <Divider variant="fullWidth" className={classes.divider} />
         <Typography variant="body2" color="textSecondary" component="p">
-        {i18n.t('product_specifications.price')}: €{props.price}
+        {i18n.t('product_specifications.price')}: €{product.price}
         </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
+        {/* <Typography variant="body2" color="textSecondary" component="p">
         {i18n.t('product_specifications.weight')}: {props.weight} gr
-        </Typography>
+        </Typography> */}
         <Typography variant="body2" color="textSecondary" component="p">
-        {i18n.t('product_specifications.stock')}: {props.stock} {i18n.t('product_specifications.item')}{props.stock > 1 ? 's': null}
+        {i18n.t('product_specifications.stock')}: {product.stock} {i18n.t('product_specifications.item')}{product.stock > 1 ? 's': null}
         </Typography>
+        <Stars rate={stars}/>
       </CardContent>
-      <CardActions>
-        {/* <IconButton aria-label="shoppingcart">
-          <ShoppingCartSharpIcon />
-        </IconButton> */}
         <Link to={{
             pathname: props.basePath,
-            state: {product: 'ProductDetails object'}
+            state: {product: product}
             }}>
-            <Button variant="contained" color="primary" size="small" >{i18n.t('product_specifications.add_to_shoppingcart')}
+            <Button variant="contained" color="primary" className={classes.button}>
+                {i18n.t('product_specifications.view_item')}
             </Button>
         </Link>
-        
-        <TextField
-          id="standard-number"
-        //   label={i18n.t('product_specifications.quantity')}
-          type="number"
-          defaultValue={1}
-          size="small"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          className={classes.textField}
-        />
-        {/* <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <Favorite />
-        </IconButton> */}
-      </CardActions>
     </Card>
   );
 }
 
 
 ProductCardV2.propTypes = {
-    img: PropTypes.string,
-    brand: PropTypes.string,
-    description: PropTypes.string,
-    id: PropTypes.string,
-    index: PropTypes.number,
-    basePath: PropTypes.string.isRequired
+    basePath: PropTypes.string.isRequired,
+    product: PropTypes.object.isRequired
 }

@@ -1,0 +1,80 @@
+.imageRow {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.product_specifications {
+    font-size: 1.2rem;
+    color: #5454e9;
+    text-align: left;    
+}
+
+.productbrand {
+    font-size: 2.0rem !important;
+    font-weight: bold !important;
+    color: #5454e9;
+    text-align: left; 
+    margin-bottom: 3%;   
+}
+
+.productdescription {
+    font-size: 1.6rem !important;
+    font-weight: 400 !important;
+    color: #5454e9;
+    text-align: left; 
+    margin-bottom: 3%;   
+}
+
+.productprice {
+    font-size: 1.2rem !important;
+    font-weight: 100 !important;
+    color: #5454e9;
+    text-align: left; 
+    margin-bottom: 1%;   
+}
+
+.productweight {
+    font-size: 1.2rem !important;
+    font-weight: 100 !important;
+    color: #5454e9;
+    text-align: left; 
+    margin-bottom: 1%;   
+}
+
+.productstock {
+    font-size: 1.2rem !important;
+    font-weight: 100 !important;
+    color: #5454e9;
+    text-align: left; 
+    margin-bottom: 1%;   
+}
+
+.productdelivery {
+    font-size: 1.2rem !important;
+    font-weight: 100 !important;
+    color: #5454e9;
+    text-align: left; 
+    margin-bottom: 5%;   
+}
+
+.productimage {
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: 80%;
+}
+
+.divider {
+    background: #5454e9 !important;
+    margin-bottom: 2% !important;
+    margin-top: 2% !important;
+}
+
+.inputTextField {
+    /* width: 2%; */
+    /* margin: 2% !important; */
+    padding-left: 2% !important ;
+    margin: 0;
+}
+

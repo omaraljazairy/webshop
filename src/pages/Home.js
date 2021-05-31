@@ -9,7 +9,7 @@ class Home extends Component {
     console.log("home props received: ", this.props);
       return(
         <>
-          <h3>{i18n.t('greeting.welcome_to_react')}</h3>
+          <h3>{i18n.t('messages.welcome')}</h3>
         </>
       )
   }

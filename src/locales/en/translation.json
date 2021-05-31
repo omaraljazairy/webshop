@@ -7,8 +7,10 @@
         "perfumes": "Perfumes",
         "suncare": "Sun Care"
     },
-    "greeting": {
-        "welcome_to_react": "Welcome"
+    "messages": {
+        "days": "days",
+        "delivered_within": "Delivered within ",
+        "welcome": "Welcome"
     },
     "product_specifications" : {
         "add_to_shoppingcart": "Add to cart",
@@ -16,6 +18,7 @@
         "price": "Price",
         "quantity": "Quantity",
         "stock": "Stock",
+        "view_item": "View Item",
         "weight": "Weight"
     }
 }

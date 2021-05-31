@@ -5,6 +5,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import { API } from 'aws-amplify';
 import { getProductByCatalog } from '../../graphql/queries';
 import ProductCardV2 from '../Cards/ProductCardV2';
+import Product from '../../datamodels/product';
 
 const TOTAL_PRODUCT_PER_PAGE = 6
 class Products extends Component {
@@ -22,7 +23,7 @@ class Products extends Component {
 
   }
 
-  handleFetchProductList = async () => {
+  handleFetchProductList = async () => { 
 
     const input = {
       catalogId: this.props.catalogId, // "9e600d71-34fa-4684-b6b7-88baba622ea8",
@@ -40,9 +41,22 @@ class Products extends Component {
       );
       
       console.log("productList retrieved: ", productList.data)
+      // convert the products from the databases to ProductDataModels and add them to a list.
+      // create an emoty array to store the converted products
+      const temp_productList = []
+      productList.data.getProductByCatalog.items.forEach(element => {
+        // add the converted products to the productList array
+        temp_productList.push(Product.convertToProduct(element))
+      });
+
+      console.log("temp_productList: ", temp_productList)
+
+
+
+
       this.setState(
         {
-          products: productList.data.getProductByCatalog.items,
+          products: temp_productList  //productList.data.getProductByCatalog.items,
         }
       )
       
@@ -83,16 +97,10 @@ class Products extends Component {
             {products.slice(start, end).map((product, index )=> (
               <Col key={index} lg="4" md={{span: 3}}>
                 <ProductCardV2
-                id={product.id}
                 index={index}
-                img={product.imageUrl}
-                brand={product.brand.name}
-                price={product.price}
-                stock={product.stock}
-                weight={product.weight}
-                description={product.description} 
                 shoppingcartEvent={(products) => this.handleShoppingCart(products)}
                 basePath={this.props.basePath}
+                product={product}
                 />
 
               </Col>

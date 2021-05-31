@@ -17,7 +17,6 @@ class Suncare extends Component {
     if (this.state.productDetails !== productDetails) {
       this.setState({productDetails: productDetails})
     }
-    
   }
 
   render() {
